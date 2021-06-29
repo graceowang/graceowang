@@ -1,0 +1,894 @@
+---
+title: "Template"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(readr)
+library(ggplot2)
+library(forcats)
+library(tidyverse)
+library(infer)
+library(tinytex)
+library(broom)
+library(plotly)
+library(plyr)
+library(dplyr)
+library(crosstalk)
+library(DT)
+library(formatR)
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+filter <- dplyr::filter
+rename <- dplyr::rename
+mutate <- dplyr::mutate
+layout <- plotly::layout
+
+```
+
+
+```{r, echo = TRUE}
+setwd("/Volumes/My Passport/quantification")
+R_mean_aRG_W2 <- read_csv("WT_RG/RG_WT_Thy1_4/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aRG_W2<- read_csv("WT_RG/RG_WT_Thy1_4/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bRG_M2<- read_csv("RG/RG_Thy1_3/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bRG_M2<- read_csv("RG/RG_Thy1_3/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bRG_M1 <- read_csv("RG/RG_Thy1 2/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bRG_M1 <- read_csv("RG/RG_Thy1 2/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aRG_W1 <- read_csv("WT_RG/RG_WT_Thy1_1/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aRG_W1 <- read_csv("WT_RG/RG_WT_Thy1_1/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bRG_M3<- read_csv("RG/RG_Thy1_32/YFP_mean_R_summary_n.csv",col_types = cols())
+L_mean_bRG_M3<- read_csv("RG/RG_Thy1_32/YFP_mean_L_summary_n.csv",col_types = cols())
+R_mean_bRG_M4 <- read_csv("RG/RG_Thy1_4/YFP_mean_R_summary_n.csv",col_types = cols())
+L_mean_bRG_M4 <- read_csv("RG/RG_Thy1_4/YFP_mean_L_summary_n.csv",col_types = cols())
+
+R_mean_bNf1_M1 <- read_csv("Nf1/051320 Nf1 Thy1 2 no staining/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M1<- read_csv("Nf1/051320 Nf1 Thy1 2 no staining/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M2<- read_csv("Nf1/081920 Nf1 Thy1 2 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M2<- read_csv("Nf1/081920 Nf1 Thy1 2 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M3 <- read_csv("Nf1/051320 Nf1 Thy1 3/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M3 <- read_csv("Nf1/051320 Nf1 Thy1 3/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M4 <- read_csv("Nf1/051320 Nf1 Thy1 3 no staining/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M4 <- read_csv("Nf1/051320 Nf1 Thy1 3 no staining/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M5 <- read_csv("Nf1/090420 Nf1 Thy1 2 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M5 <- read_csv("Nf1/090420 Nf1 Thy1 2 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M6 <- read_csv("Nf1/Nf1_Thy1_18/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M6 <- read_csv("Nf1/Nf1_Thy1_18/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bNf1_M7 <- read_csv("Nf1/030921 Nf1 Thy1 17 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bNf1_M7 <- read_csv("Nf1/030921 Nf1 Thy1 17 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W1 <- read_csv("WT_Nf1/051320 WT Thy1 1 no staining/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W1<- read_csv("WT_Nf1/051320 WT Thy1 1 no staining/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W2<- read_csv("WT_Nf1/051320 WT Thy1 1 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W2<- read_csv("WT_Nf1/051320 WT Thy1 1 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W3 <- read_csv("WT_Nf1/051320 WT Thy1 7/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W3 <- read_csv("WT_Nf1/051320 WT Thy1 7/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W4 <- read_csv("WT_Nf1/WT_Thy1_1/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W4 <- read_csv("WT_Nf1/WT_Thy1_1/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W5 <- read_csv("WT_Nf1/061020 Nf1 WT Thy1 4 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W5 <- read_csv("WT_Nf1/061020 Nf1 WT Thy1 4 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W6 <- read_csv("WT_Nf1/Nf1_Thy1_19/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W6 <- read_csv("WT_Nf1/Nf1_Thy1_19/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aNf1_W7 <- read_csv("WT_Nf1/030921 Nf1 WT Thy1 21 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aNf1_W7 <- read_csv("WT_Nf1/030921 Nf1 WT Thy1 21 nostain/re_mean_L_summary_n.csv",col_types = cols())
+
+R_mean_bTbr1_M1 <- read_csv("Tbr1/092920 Tbr1 Thy1 2 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M1<- read_csv("Tbr1/092920 Tbr1 Thy1 2 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bTbr1_M2<- read_csv("Tbr1/010421 Tbr1 Thy1 3 no stain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M2<- read_csv("Tbr1/010421 Tbr1 Thy1 3 no stain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bTbr1_M3 <- read_csv("Tbr1/120220 Tbr1 Thy1 35 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M3 <- read_csv("Tbr1/120220 Tbr1 Thy1 35 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bTbr1_M4 <- read_csv("Tbr1/110320 Tbr1 Thy1 5 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M4 <- read_csv("Tbr1/110320 Tbr1 Thy1 5 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bTbr1_M5 <- read_csv("Tbr1/Tbr1_Thy1_24/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M5 <- read_csv("Tbr1/Tbr1_Thy1_24/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_bTbr1_M6 <- read_csv("Tbr1/030821 Tbr1 Thy1 25 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_bTbr1_M6 <- read_csv("Tbr1/030821 Tbr1 Thy1 25 nostain/re_mean_L_summary_n.csv",col_types = cols())
+
+R_mean_aTbr1_W1 <- read_csv("WT_Tbr1/092920 Tbr1 WT Thy1 1 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W1 <- read_csv("WT_Tbr1/092920 Tbr1 WT Thy1 1 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aTbr1_W2<- read_csv("WT_Tbr1/010421 Tbr1 WT Thy1 4 no stain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W2<- read_csv("WT_Tbr1/010421 Tbr1 WT Thy1 4 no stain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aTbr1_W3 <- read_csv("WT_Tbr1/110320 Tbr1 WT Thy1 4 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W3 <- read_csv("WT_Tbr1/110320 Tbr1 WT Thy1 4 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aTbr1_W4 <- read_csv("WT_Tbr1/120220 Tbr1 WT Thy1 36 nostain/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W4 <- read_csv("WT_Tbr1/120220 Tbr1 WT Thy1 36 nostain/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aTbr1_W5 <- read_csv("WT_Tbr1/Tbr1_Thy1_8/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W5 <- read_csv("WT_Tbr1/Tbr1_Thy1_8/re_mean_L_summary_n.csv",col_types = cols())
+R_mean_aTbr1_W6 <- read_csv("WT_Tbr1/Tbr1_Thy1_22/re_mean_R_summary_n.csv",col_types = cols())
+L_mean_aTbr1_W6 <- read_csv("WT_Tbr1/Tbr1_Thy1_22/re_mean_L_summary_n.csv",col_types = cols())
+```
+
+```{r , echo = TRUE}
+L_mean_aRG_W1[L_mean_aRG_W1<0] <- 0
+L_mean_bRG_M1[L_mean_bRG_M1<0] <- 0
+L_mean_bRG_M2[L_mean_bRG_M2<0] <- 0
+L_mean_bRG_M3[L_mean_bRG_M3<0] <- 0
+L_mean_bRG_M4[L_mean_bRG_M4<0] <- 0
+L_mean_aRG_W2[L_mean_aRG_W2<0] <- 0
+R_mean_aRG_W1[R_mean_aRG_W1<0] <- 0
+R_mean_bRG_M1[R_mean_bRG_M1<0] <- 0
+R_mean_bRG_M2[R_mean_bRG_M2<0] <- 0
+R_mean_aRG_W2[R_mean_aRG_W2<0] <- 0
+R_mean_bRG_M3[R_mean_bRG_M3<0] <- 0
+R_mean_bRG_M4[R_mean_bRG_M4<0] <- 0
+
+R_mean_bNf1_M1[R_mean_bNf1_M1<0] <- 0
+L_mean_bNf1_M1[L_mean_bNf1_M1<0] <- 0 
+R_mean_bNf1_M2[R_mean_bNf1_M2<0] <- 0 
+L_mean_bNf1_M2[L_mean_bNf1_M2<0] <- 0 
+R_mean_bNf1_M3[R_mean_bNf1_M3<0] <- 0 
+L_mean_bNf1_M3[L_mean_bNf1_M3<0] <- 0   
+R_mean_bNf1_M4[R_mean_bNf1_M4<0] <- 0   
+L_mean_bNf1_M4[L_mean_bNf1_M4<0] <- 0   
+R_mean_bNf1_M5[R_mean_bNf1_M5<0] <- 0   
+L_mean_bNf1_M5[L_mean_bNf1_M5<0] <- 0 
+R_mean_bNf1_M6[R_mean_bNf1_M6<0] <- 0   
+L_mean_bNf1_M6[L_mean_bNf1_M6<0] <- 0 
+R_mean_bNf1_M7[R_mean_bNf1_M7<0] <- 0   
+L_mean_bNf1_M7[L_mean_bNf1_M7<0] <- 0 
+
+R_mean_aNf1_W1[R_mean_aNf1_W1<0] <- 0   
+L_mean_aNf1_W1[L_mean_aNf1_W1<0] <- 0  
+R_mean_aNf1_W2[R_mean_aNf1_W2<0] <- 0  
+L_mean_aNf1_W2[L_mean_aNf1_W2<0] <- 0  
+R_mean_aNf1_W3[R_mean_aNf1_W3<0] <- 0   
+L_mean_aNf1_W3[L_mean_aNf1_W3<0] <- 0 
+R_mean_aNf1_W4[R_mean_aNf1_W4<0] <- 0   
+L_mean_aNf1_W4[L_mean_aNf1_W4<0] <- 0 
+R_mean_aNf1_W5[R_mean_aNf1_W5<0] <- 0   
+L_mean_aNf1_W5[L_mean_aNf1_W5<0] <- 0
+R_mean_aNf1_W6[R_mean_aNf1_W6<0] <- 0   
+L_mean_aNf1_W6[L_mean_aNf1_W6<0] <- 0 
+R_mean_aNf1_W7[R_mean_aNf1_W7<0] <- 0   
+L_mean_aNf1_W7[L_mean_aNf1_W7<0] <- 0 
+
+R_mean_bTbr1_M1[R_mean_bTbr1_M1<0] <- 0
+L_mean_bTbr1_M1[L_mean_bTbr1_M1<0] <- 0
+R_mean_bTbr1_M2[R_mean_bTbr1_M2<0] <- 0
+L_mean_bTbr1_M2[L_mean_bTbr1_M2<0] <- 0
+R_mean_bTbr1_M3[R_mean_bTbr1_M3<0] <- 0
+L_mean_bTbr1_M3[L_mean_bTbr1_M3<0] <- 0
+R_mean_bTbr1_M4[R_mean_bTbr1_M4<0] <- 0
+L_mean_bTbr1_M4[L_mean_bTbr1_M4<0] <- 0
+R_mean_bTbr1_M5[R_mean_bTbr1_M5<0] <- 0
+L_mean_bTbr1_M5[L_mean_bTbr1_M5<0] <- 0
+R_mean_bTbr1_M6[R_mean_bTbr1_M6<0] <- 0
+L_mean_bTbr1_M6[L_mean_bTbr1_M6<0] <- 0
+
+R_mean_aTbr1_W1[R_mean_aTbr1_W1<0] <- 0
+L_mean_aTbr1_W1[L_mean_aTbr1_W1<0] <- 0
+R_mean_aTbr1_W2[R_mean_aTbr1_W2<0] <- 0
+L_mean_aTbr1_W2[L_mean_aTbr1_W2<0] <- 0
+R_mean_aTbr1_W3[R_mean_aTbr1_W3<0] <- 0
+L_mean_aTbr1_W3[L_mean_aTbr1_W3<0] <- 0
+R_mean_aTbr1_W4[R_mean_aTbr1_W4<0] <- 0
+L_mean_aTbr1_W4[L_mean_aTbr1_W4<0] <- 0
+R_mean_aTbr1_W5[R_mean_aTbr1_W5<0] <- 0
+L_mean_aTbr1_W5[L_mean_aTbr1_W5<0] <- 0
+R_mean_aTbr1_W6[R_mean_aTbr1_W6<0] <- 0
+L_mean_aTbr1_W6[L_mean_aTbr1_W6<0] <- 0
+```
+
+```{r , echo = TRUE}
+L_mean_aRG_W1_sum1 <- L_mean_aRG_W1 %>% mutate(total = rowSums(L_mean_aRG_W1[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+L_mean_bRG_M1_sum2 <- L_mean_bRG_M1 %>% mutate(total = rowSums(L_mean_bRG_M1[2:132])) %>% select(-c(2:132)) %>% filter (total>0.4)
+L_mean_bRG_M2_sum3 <- L_mean_bRG_M2 %>% mutate(total = rowSums(L_mean_bRG_M2[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+L_mean_bRG_M3_sum5 <- L_mean_bRG_M3 %>% mutate(total = rowSums(L_mean_bRG_M3[2:131])) %>% select(-c(2:131))  %>% filter (total>0.4)
+L_mean_bRG_M4_sum6 <- L_mean_bRG_M4 %>% mutate(total = rowSums(L_mean_bRG_M4[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+L_mean_aRG_W2_sum4 <- L_mean_aRG_W2 %>% mutate(total = rowSums(L_mean_aRG_W2[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+R_mean_aRG_W1_sum1 <- R_mean_aRG_W1 %>% mutate(total = rowSums(R_mean_aRG_W1[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+R_mean_bRG_M1_sum2 <- R_mean_bRG_M1 %>% mutate(total = rowSums(R_mean_bRG_M1[2:132])) %>% select(-c(2:132))  %>% filter (total>0.4)
+R_mean_bRG_M2_sum3 <- R_mean_bRG_M2 %>% mutate(total = rowSums(R_mean_bRG_M2[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+R_mean_bRG_M3_sum5 <- R_mean_bRG_M3 %>% mutate(total = rowSums(R_mean_bRG_M3[2:131])) %>% select(-c(2:131))  %>% filter (total>0.4)
+R_mean_bRG_M4_sum6 <- R_mean_bRG_M4 %>% mutate(total = rowSums(R_mean_bRG_M4[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+R_mean_aRG_W2_sum4 <- R_mean_aRG_W2 %>% mutate(total = rowSums(R_mean_aRG_W2[2:131])) %>% select(-c(2:131))  %>% filter (total>0.4)
+
+L_mean_bNf1_M1_sum1 <- L_mean_bNf1_M1 %>% mutate(total = rowSums(L_mean_bNf1_M1[2:129])) %>% select(-c(2:129)) %>% filter (total>0.4)
+L_mean_bNf1_M2_sum2 <- L_mean_bNf1_M2 %>% mutate(total = rowSums(L_mean_bNf1_M2[2:124])) %>% select(-c(2:124)) %>% filter (total>0.4)
+L_mean_bNf1_M3_sum3 <- L_mean_bNf1_M3 %>% mutate(total = rowSums(L_mean_bNf1_M3[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+L_mean_bNf1_M4_sum4 <- L_mean_bNf1_M4 %>% mutate(total = rowSums(L_mean_bNf1_M4[2:129])) %>% select(-c(2:129)) %>% filter (total>0.4)
+L_mean_bNf1_M5_sum5 <- L_mean_bNf1_M5 %>% mutate(total = rowSums(L_mean_bNf1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+L_mean_bNf1_M6_sum6 <- L_mean_bNf1_M6 %>% mutate(total = rowSums(L_mean_bNf1_M6[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+L_mean_bNf1_M7_sum7 <- L_mean_bNf1_M7 %>% mutate(total = rowSums(L_mean_bNf1_M7[2:139])) %>% select(-c(2:139)) %>% filter (total>0.4)
+R_mean_bNf1_M1_sum1 <- R_mean_bNf1_M1 %>% mutate(total = rowSums(R_mean_bNf1_M1[2:129])) %>% select(-c(2:129)) %>% filter (total>0.4)
+R_mean_bNf1_M2_sum2 <- R_mean_bNf1_M2 %>% mutate(total = rowSums(R_mean_bNf1_M2[2:124])) %>% select(-c(2:124))  %>% filter (total>0.4)
+R_mean_bNf1_M3_sum3 <- R_mean_bNf1_M3 %>% mutate(total = rowSums(R_mean_bNf1_M3[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+R_mean_bNf1_M4_sum4 <- R_mean_bNf1_M4 %>% mutate(total = rowSums(R_mean_bNf1_M4[2:129])) %>% select(-c(2:129))  %>% filter (total>0.4)
+R_mean_bNf1_M5_sum5 <- R_mean_bNf1_M5 %>% mutate(total = rowSums(R_mean_bNf1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+R_mean_bNf1_M6_sum6 <- R_mean_bNf1_M6 %>% mutate(total = rowSums(R_mean_bNf1_M6[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+R_mean_bNf1_M7_sum7 <- R_mean_bNf1_M7 %>% mutate(total = rowSums(R_mean_bNf1_M7[2:139])) %>% select(-c(2:139)) %>% filter (total>0.4)
+L_mean_aNf1_W1_sum1 <- L_mean_aNf1_W1 %>% mutate(total = rowSums(L_mean_aNf1_W1[2:130])) %>% select(-c(2:130)) %>% filter (total>0.4)
+L_mean_aNf1_W2_sum2 <- L_mean_aNf1_W2 %>% mutate(total = rowSums(L_mean_aNf1_W2[2:121])) %>% select(-c(2:121)) %>% filter (total>0.4)
+L_mean_aNf1_W3_sum3 <- L_mean_aNf1_W3 %>% mutate(total = rowSums(L_mean_aNf1_W3[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+L_mean_aNf1_W4_sum4 <- L_mean_aNf1_W4 %>% mutate(total = rowSums(L_mean_aNf1_W4[2:129])) %>% select(-c(2:129)) %>% filter (total>0.4)
+L_mean_aNf1_W5_sum5 <- L_mean_aNf1_W5 %>% mutate(total = rowSums(L_mean_aNf1_W5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+L_mean_aNf1_W6_sum6 <- L_mean_aNf1_W6 %>% mutate(total = rowSums(L_mean_aNf1_W6[2:127])) %>% select(-c(2:127)) %>% filter (total>0.4)
+L_mean_aNf1_W7_sum7 <- L_mean_aNf1_W7 %>% mutate(total = rowSums(L_mean_aNf1_W7[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+
+R_mean_aNf1_W1_sum1 <- R_mean_aNf1_W1 %>% mutate(total = rowSums(R_mean_aNf1_W1[2:130])) %>% select(-c(2:130)) %>% filter (total>0.4)
+R_mean_aNf1_W2_sum2 <- R_mean_aNf1_W2 %>% mutate(total = rowSums(R_mean_aNf1_W2[2:121])) %>% select(-c(2:121))  %>% filter (total>0.4)
+R_mean_aNf1_W3_sum3 <- R_mean_aNf1_W3 %>% mutate(total = rowSums(R_mean_aNf1_W3[2:123])) %>% select(-c(2:123)) %>% filter (total>0.4)
+R_mean_aNf1_W4_sum4 <- R_mean_aNf1_W4 %>% mutate(total = rowSums(R_mean_aNf1_W4[2:129])) %>% select(-c(2:129)) %>% filter (total>0.4)
+R_mean_aNf1_W5_sum5 <- R_mean_aNf1_W5 %>% mutate(total = rowSums(R_mean_aNf1_W5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+R_mean_aNf1_W6_sum6 <- R_mean_aNf1_W6 %>% mutate(total = rowSums(R_mean_aNf1_W6[2:127])) %>% select(-c(2:127)) %>% filter (total>0.4)
+R_mean_aNf1_W7_sum7 <- R_mean_aNf1_W7 %>% mutate(total = rowSums(R_mean_aNf1_W7[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+
+L_mean_bTbr1_M1_sum1 <- L_mean_bTbr1_M1 %>% mutate(total = rowSums(L_mean_bTbr1_M1[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+L_mean_bTbr1_M2_sum2 <- L_mean_bTbr1_M2 %>% mutate(total = rowSums(L_mean_bTbr1_M2[2:145])) %>% select(-c(2:145)) %>% filter (total>0.4)
+L_mean_bTbr1_M3_sum3 <- L_mean_bTbr1_M3 %>% mutate(total = rowSums(L_mean_bTbr1_M3[2:139])) %>% select(-c(2:139)) %>% filter (total>0.4)
+L_mean_bTbr1_M4_sum4 <- L_mean_bTbr1_M4 %>% mutate(total = rowSums(L_mean_bTbr1_M4[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+L_mean_bTbr1_M5_sum5 <- L_mean_bTbr1_M5 %>% mutate(total = rowSums(L_mean_bTbr1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+L_mean_bTbr1_M6_sum6 <- L_mean_bTbr1_M6 %>% mutate(total = rowSums(L_mean_bTbr1_M6[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+
+R_mean_bTbr1_M1_sum1 <- R_mean_bTbr1_M1 %>% mutate(total = rowSums(R_mean_bTbr1_M1[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+R_mean_bTbr1_M2_sum2 <- R_mean_bTbr1_M2 %>% mutate(total = rowSums(R_mean_bTbr1_M2[2:145])) %>% select(-c(2:145))  %>% filter (total>0.4)
+R_mean_bTbr1_M3_sum3 <- R_mean_bTbr1_M3 %>% mutate(total = rowSums(R_mean_bTbr1_M3[2:139])) %>% select(-c(2:139)) %>% filter (total>0.4)
+R_mean_bTbr1_M4_sum4 <- R_mean_bTbr1_M4 %>% mutate(total = rowSums(R_mean_bTbr1_M4[2:137])) %>% select(-c(2:137))  %>% filter (total>0.4)
+R_mean_bTbr1_M5_sum5 <- R_mean_bTbr1_M5 %>% mutate(total = rowSums(R_mean_bTbr1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0.4)
+R_mean_bTbr1_M6_sum6 <- R_mean_bTbr1_M6 %>% mutate(total = rowSums(R_mean_bTbr1_M6[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+
+L_mean_aTbr1_W1_sum1 <- L_mean_aTbr1_W1 %>% mutate(total = rowSums(L_mean_aTbr1_W1[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+L_mean_aTbr1_W2_sum2 <- L_mean_aTbr1_W2 %>% mutate(total = rowSums(L_mean_aTbr1_W2[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+L_mean_aTbr1_W3_sum3 <- L_mean_aTbr1_W3 %>% mutate(total = rowSums(L_mean_aTbr1_W3[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+L_mean_aTbr1_W4_sum4 <- L_mean_aTbr1_W4 %>% mutate(total = rowSums(L_mean_aTbr1_W4[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+L_mean_aTbr1_W5_sum5 <- L_mean_aTbr1_W5 %>% mutate(total = rowSums(L_mean_aTbr1_W5[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+L_mean_aTbr1_W6_sum6 <- L_mean_aTbr1_W6 %>% mutate(total = rowSums(L_mean_aTbr1_W6[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+R_mean_aTbr1_W1_sum1 <- R_mean_aTbr1_W1 %>% mutate(total = rowSums(R_mean_aTbr1_W1[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+R_mean_aTbr1_W2_sum2 <- R_mean_aTbr1_W2 %>% mutate(total = rowSums(R_mean_aTbr1_W2[2:137])) %>% select(-c(2:137))  %>% filter (total>0.4)
+R_mean_aTbr1_W3_sum3 <- R_mean_aTbr1_W3 %>% mutate(total = rowSums(R_mean_aTbr1_W3[2:137])) %>% select(-c(2:137)) %>% filter (total>0.4)
+R_mean_aTbr1_W4_sum4 <- R_mean_aTbr1_W4 %>% mutate(total = rowSums(R_mean_aTbr1_W4[2:133])) %>% select(-c(2:133)) %>% filter (total>0.4)
+R_mean_aTbr1_W5_sum5 <- R_mean_aTbr1_W5 %>% mutate(total = rowSums(R_mean_aTbr1_W5[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+R_mean_aTbr1_W6_sum6 <- R_mean_aTbr1_W6 %>% mutate(total = rowSums(R_mean_aTbr1_W6[2:131])) %>% select(-c(2:131)) %>% filter (total>0.4)
+
+```
+
+```{r, echo = TRUE }
+WT_mean_L <- merge(L_mean_aRG_W2_sum4,L_mean_aRG_W1_sum1,by = 'LABEL') %>% rename (one = total.x, two = total.y) 
+WT_mean_L <- WT_mean_L %>% merge(L_mean_aNf1_W1_sum1, by = 'LABEL') %>% rename (three = total) %>% merge(L_mean_aNf1_W2_sum2, by = 'LABEL') %>% rename (four = total) %>% merge(L_mean_aNf1_W3_sum3, by = 'LABEL') %>% rename (five = total) %>% merge(L_mean_aNf1_W4_sum4, by = 'LABEL') %>% rename (six = total) %>% merge(L_mean_aNf1_W5_sum5, by = 'LABEL') %>% rename (seven = total) %>% merge(L_mean_aTbr1_W1_sum1, by = 'LABEL') %>% rename (eight = total) %>% merge(L_mean_aTbr1_W2_sum2, by = 'LABEL') %>% rename (nine = total) %>% merge(L_mean_aTbr1_W3_sum3, by = 'LABEL') %>% rename (ten = total) %>% merge (L_mean_aTbr1_W4_sum4, by = 'LABEL') %>% rename (eleven = total) %>% merge (L_mean_aTbr1_W5_sum5, by = 'LABEL') %>% rename (twelve = total) %>% merge (L_mean_aTbr1_W6_sum6, by = 'LABEL') %>% rename (thirteen = total) %>% merge (L_mean_aNf1_W6_sum6, by = 'LABEL') %>% rename (fourteen = total) %>% merge (L_mean_aNf1_W7_sum7, by = 'LABEL') %>% rename (fifteen = total)
+WT_mean_L <- WT_mean_L %>% mutate(average= rowMeans(WT_mean_L[2:16])) %>% select(-c(2:16))
+
+WT_mean_R <- merge(R_mean_aRG_W2_sum4,R_mean_aRG_W1_sum1,by = 'LABEL') %>% rename (one = total.x, two = total.y) 
+WT_mean_R <- WT_mean_R %>% merge(R_mean_aNf1_W1_sum1, by = 'LABEL') %>% rename (three = total) %>% merge(R_mean_aNf1_W2_sum2, by = 'LABEL') %>% rename (four = total) %>% merge(R_mean_aNf1_W3_sum3, by = 'LABEL') %>% rename (five = total) %>% merge(R_mean_aNf1_W4_sum4, by = 'LABEL') %>% rename (six = total) %>% merge(R_mean_aNf1_W5_sum5, by = 'LABEL') %>% rename (seven = total) %>% merge(R_mean_aTbr1_W1_sum1, by = 'LABEL') %>% rename (eight = total) %>% merge(R_mean_aTbr1_W2_sum2, by = 'LABEL') %>% rename (nine = total) %>% merge(R_mean_aTbr1_W3_sum3, by = 'LABEL') %>% rename (ten = total) %>% merge (R_mean_aTbr1_W4_sum4, by = 'LABEL') %>% rename (eleven = total) %>% merge (R_mean_aTbr1_W5_sum5, by = 'LABEL') %>% rename (twelve = total) %>% merge (R_mean_aTbr1_W6_sum6, by = 'LABEL') %>% rename (thirteen = total) %>% merge (R_mean_aNf1_W6_sum6, by = 'LABEL') %>% rename (fourteen = total) %>% merge (R_mean_aNf1_W7_sum7, by = 'LABEL') %>% rename (fifteen = total)
+WT_mean_R <- WT_mean_R %>% mutate(average= rowMeans(WT_mean_R[2:16])) %>% select(-c(2:16))
+```
+
+```{r , echo = TRUE}
+L_mean_summary <- merge(L_mean_bRG_M1_sum2,L_mean_bRG_M2_sum3, by="LABEL")
+L_mean_summary <- L_mean_summary %>% rename (bRG_M1 = total.x, bRG_M2 = total.y) %>% merge(L_mean_aRG_W1_sum1, by="LABEL") %>% rename(aRG_W1 = total) %>% merge(L_mean_aRG_W2_sum4, by="LABEL") %>% rename(aRG_W2 = total) %>% merge(L_mean_bRG_M3_sum5, by="LABEL") %>% rename(bRG_M3 = total) %>% merge(L_mean_bRG_M4_sum6, by="LABEL") %>% rename(bRG_M4 = total) %>% merge(L_mean_bNf1_M1_sum1, by="LABEL") %>% rename(bNf1_M1 = total) %>% merge(L_mean_bNf1_M2_sum2, by="LABEL") %>% rename(bNf1_M2 = total) %>% merge(L_mean_bNf1_M3_sum3, by="LABEL") %>% rename(bNf1_M3 = total) %>% merge(L_mean_bNf1_M4_sum4, by="LABEL") %>% rename(bNf1_M4 = total) %>% merge(L_mean_bNf1_M5_sum5, by="LABEL") %>% rename(bNf1_M5 = total) %>% merge(L_mean_aNf1_W1_sum1, by="LABEL") %>% rename(aNf1_W1 = total) %>% merge(L_mean_aNf1_W2_sum2, by="LABEL") %>% rename(aNf1_W2 = total) %>% merge(L_mean_aNf1_W3_sum3, by="LABEL") %>% rename(aNf1_W3 = total) %>% merge(L_mean_aNf1_W4_sum4, by="LABEL") %>% rename(aNf1_W4 = total) %>% merge(L_mean_aNf1_W5_sum5, by="LABEL") %>% rename(aNf1_W5 = total) %>% merge(L_mean_bTbr1_M1_sum1, by="LABEL") %>% rename(bTbr1_M1 = total) %>% merge(L_mean_bTbr1_M2_sum2, by="LABEL") %>% rename(bTbr1_M2 = total) %>% merge(L_mean_bTbr1_M3_sum3, by="LABEL") %>% rename(bTbr1_M3 = total) %>% merge(L_mean_bTbr1_M4_sum4, by="LABEL") %>% rename(bTbr1_M4 = total)  %>% merge(L_mean_bTbr1_M5_sum5, by="LABEL") %>% rename(bTbr1_M5 = total)%>% merge(L_mean_aTbr1_W1_sum1, by="LABEL") %>% rename(aTbr1_W1 = total) %>% merge(L_mean_aTbr1_W2_sum2, by="LABEL") %>% rename(aTbr1_W2 = total) %>% merge(L_mean_aTbr1_W3_sum3, by="LABEL") %>% rename(aTbr1_W3 = total) %>% merge(L_mean_aTbr1_W4_sum4, by="LABEL") %>% rename(aTbr1_W4 = total) %>% merge(L_mean_aTbr1_W5_sum5, by="LABEL") %>% rename(aTbr1_W5 = total) %>% merge(L_mean_aTbr1_W6_sum6, by="LABEL") %>% rename(aTbr1_W6 = total) %>%  merge(L_mean_aNf1_W6_sum6, by="LABEL") %>% rename(aNf1_W6 = total) %>% merge(L_mean_bNf1_M6_sum6, by="LABEL") %>% rename(bNf1_M6 = total) %>% merge(L_mean_aNf1_W7_sum7, by="LABEL") %>% rename(aNf1_W7 = total) %>% merge(L_mean_bNf1_M7_sum7, by="LABEL") %>% rename(bNf1_M7 = total) %>% merge(L_mean_bTbr1_M6_sum6, by="LABEL") %>% rename(bTbr1_M6 = total)%>% merge(WT_mean_L, by="LABEL")  
+
+R_mean_summary <- merge(R_mean_bRG_M1_sum2,R_mean_bRG_M2_sum3, by="LABEL")
+R_mean_summary <- R_mean_summary %>% rename (bRG_M1 = total.x, bRG_M2 = total.y) %>% merge(R_mean_aRG_W1_sum1, by="LABEL") %>% rename(aRG_W1 = total) %>% merge(R_mean_aRG_W2_sum4, by="LABEL") %>% rename(aRG_W2 = total)%>% merge(R_mean_bRG_M3_sum5, by="LABEL") %>% rename(bRG_M3 = total) %>% merge(R_mean_bRG_M4_sum6, by="LABEL") %>% rename(bRG_M4 = total) %>% merge(R_mean_bNf1_M1_sum1, by="LABEL") %>% rename(bNf1_M1 = total) %>% merge(R_mean_bNf1_M2_sum2, by="LABEL") %>% rename(bNf1_M2 = total) %>% merge(R_mean_bNf1_M3_sum3, by="LABEL") %>% rename(bNf1_M3 = total) %>% merge(R_mean_bNf1_M4_sum4, by="LABEL") %>% rename(bNf1_M4 = total) %>% merge(R_mean_bNf1_M5_sum5, by="LABEL") %>% rename(bNf1_M5 = total) %>% merge(R_mean_aNf1_W1_sum1, by="LABEL") %>% rename(aNf1_W1 = total) %>% merge(R_mean_aNf1_W2_sum2, by="LABEL") %>% rename(aNf1_W2 = total) %>% merge(R_mean_aNf1_W3_sum3, by="LABEL") %>% rename(aNf1_W3 = total) %>% merge(R_mean_aNf1_W4_sum4, by="LABEL") %>% rename(aNf1_W4 = total) %>% 
+merge(R_mean_aNf1_W5_sum5, by="LABEL") %>% rename(aNf1_W5 = total) %>% merge(R_mean_bTbr1_M1_sum1, by="LABEL") %>% rename(bTbr1_M1 = total) %>% merge(R_mean_bTbr1_M2_sum2, by="LABEL") %>% rename(bTbr1_M2 = total) %>% merge(R_mean_bTbr1_M3_sum3, by="LABEL") %>% rename(bTbr1_M3 = total) %>% merge(R_mean_bTbr1_M4_sum4, by="LABEL") %>% rename(bTbr1_M4 = total) %>% merge(R_mean_bTbr1_M5_sum5, by="LABEL") %>% rename(bTbr1_M5 = total) %>% merge(R_mean_aTbr1_W1_sum1, by="LABEL") %>% rename(aTbr1_W1 = total) %>% merge(R_mean_aTbr1_W2_sum2, by="LABEL") %>% rename(aTbr1_W2 = total) %>% merge(R_mean_aTbr1_W3_sum3, by="LABEL") %>% rename(aTbr1_W3 = total) %>% merge(R_mean_aTbr1_W4_sum4, by="LABEL") %>% rename(aTbr1_W4 = total) %>% merge(R_mean_aTbr1_W5_sum5, by="LABEL") %>% rename(aTbr1_W5 = total) %>% merge(R_mean_aTbr1_W6_sum6, by="LABEL") %>% rename(aTbr1_W6 = total)  %>%  merge(R_mean_aNf1_W6_sum6, by="LABEL") %>% rename(aNf1_W6 = total) %>% merge(R_mean_bNf1_M6_sum6, by="LABEL") %>% rename(bNf1_M6 = total) %>% merge(R_mean_aNf1_W7_sum7, by="LABEL") %>% rename(aNf1_W7 = total) %>% merge(R_mean_bNf1_M7_sum7, by="LABEL") %>% rename(bNf1_M7 = total)%>%merge(R_mean_bTbr1_M6_sum6, by="LABEL") %>% rename(bTbr1_M6 = total)%>% merge(WT_mean_R, by="LABEL") 
+```
+
+```{r, echo = TRUE}
+L_mean_summary_n <- L_mean_summary %>% mutate (bRG_M1 = bRG_M1/average*100) %>% mutate (bRG_M2 = bRG_M2/average*100) %>% mutate (aRG_W1 = aRG_W1/average*100) %>% mutate (aRG_W2 = aRG_W2/average*100) %>%  mutate (bRG_M3 = bRG_M3/average*100) %>%  mutate (bRG_M4 = bRG_M4/average*100) %>%  mutate (bNf1_M1 = bNf1_M1/average*100) %>% mutate (bNf1_M2 = bNf1_M2/average*100) %>% mutate (bNf1_M3 = bNf1_M3/average*100) %>% mutate (bNf1_M4 = bNf1_M4/average*100) %>% mutate (bNf1_M5 = bNf1_M5/average*100) %>% mutate (aNf1_W1 = aNf1_W1/average*100) %>% mutate (aNf1_W2 = aNf1_W2/average*100) %>% mutate (aNf1_W3 = aNf1_W3/average*100)  %>% mutate (aNf1_W4 = aNf1_W4/average*100) %>% mutate (aNf1_W5 = aNf1_W5/average*100) %>% mutate (bTbr1_M1 = bTbr1_M1/average*100) %>% mutate (bTbr1_M2 = bTbr1_M2/average*100) %>% mutate (bTbr1_M3 = bTbr1_M3/average*100) %>% mutate (bTbr1_M4 = bTbr1_M4/average*100) %>% mutate (bTbr1_M5 = bTbr1_M5/average*100) %>% mutate (aTbr1_W1 = aTbr1_W1/average*100) %>% mutate (aTbr1_W2 = aTbr1_W2/average*100) %>% mutate (aTbr1_W3 = aTbr1_W3/average*100) %>% mutate (aTbr1_W4 = aTbr1_W4/average*100)%>% mutate (aTbr1_W5 = aTbr1_W5/average*100) %>% mutate (aTbr1_W6 = aTbr1_W6/average*100) %>% mutate (aNf1_W6 = aNf1_W6/average*100) %>% mutate (bNf1_M6 = bNf1_M6/average*100) %>% mutate (aNf1_W7 = aNf1_W7/average*100)%>% mutate (bTbr1_M6 = bTbr1_M6/average*100) %>% mutate (bNf1_M7 = bNf1_M7/average*100) %>% select (-c(average))
+
+R_mean_summary_n <- R_mean_summary %>% mutate (bRG_M1 = bRG_M1/average*100) %>% mutate (bRG_M2 = bRG_M2/average*100) %>% mutate (aRG_W1 = aRG_W1/average*100) %>% mutate (aRG_W2 = aRG_W2/average*100) %>%  mutate (bRG_M3 = bRG_M3/average*100) %>%  mutate (bRG_M4 = bRG_M4/average*100) %>% mutate (bNf1_M1 = bNf1_M1/average*100) %>% mutate (bNf1_M2 = bNf1_M2/average*100) %>% mutate (bNf1_M3 = bNf1_M3/average*100) %>% mutate (bNf1_M4 = bNf1_M4/average*100)  %>% mutate (bNf1_M5 = bNf1_M5/average*100) %>% mutate (aNf1_W1 = aNf1_W1/average*100) %>% mutate (aNf1_W2 = aNf1_W2/average*100) %>% mutate (aNf1_W3 = aNf1_W3/average*100) %>% mutate (aNf1_W4 = aNf1_W4/average*100) %>% mutate (aNf1_W5 = aNf1_W5/average*100) %>% mutate (bTbr1_M1 = bTbr1_M1/average*100) %>% mutate (bTbr1_M2 = bTbr1_M2/average*100) %>% mutate (bTbr1_M3 = bTbr1_M3/average*100) %>% mutate (bTbr1_M4 = bTbr1_M4/average*100) %>% mutate (bTbr1_M5 = bTbr1_M5/average*100) %>% mutate (aTbr1_W1 = aTbr1_W1/average*100) %>% mutate (aTbr1_W2 = aTbr1_W2/average*100) %>% mutate (aTbr1_W3 = aTbr1_W3/average*100) %>% mutate (aTbr1_W4 = aTbr1_W4/average*100) %>% mutate (aTbr1_W5 = aTbr1_W5/average*100) %>% mutate (aTbr1_W6 = aTbr1_W6/average*100)%>% mutate (aNf1_W6 = aNf1_W6/average*100) %>% mutate (bNf1_M6 = bNf1_M6/average*100)%>% mutate (aNf1_W7 = aNf1_W7/average*100)%>% mutate (bTbr1_M6 = bTbr1_M6/average*100) %>% mutate (bNf1_M7 = bNf1_M7/average*100) %>% select (-c(average))
+```
+
+```{r}
+write.csv(L_mean_summary_n,"summaryinfo/L_mean_summary_n.csv", row.names = FALSE)
+write.csv(R_mean_summary_n,"summaryinfo/R_mean_summary_n.csv", row.names = FALSE)
+```
+
+```{r, echo = TRUE}
+setwd("/Volumes/My Passport/quantification")
+R_cell_aRG_W2 <- read_csv("WT_RG/RG_WT_Thy1_4/re_cell_R_summary.csv",col_types = cols())
+L_cell_aRG_W2<- read_csv("WT_RG/RG_WT_Thy1_4/re_cell_L_summary.csv",col_types = cols())
+R_cell_bRG_M2<- read_csv("RG/RG_Thy1_3/re_cell_R_summary.csv",col_types = cols())
+L_cell_bRG_M2<- read_csv("RG/RG_Thy1_3/re_cell_L_summary.csv",col_types = cols())
+R_cell_bRG_M1 <- read_csv("RG/RG_Thy1 2/re_cell_R_summary.csv",col_types = cols())
+L_cell_bRG_M1 <- read_csv("RG/RG_Thy1 2/re_cell_L_summary.csv",col_types = cols())
+R_cell_aRG_W1 <- read_csv("WT_RG/RG_WT_Thy1_1/re_cell_R_summary.csv",col_types = cols())
+L_cell_aRG_W1 <- read_csv("WT_RG/RG_WT_Thy1_1/re_cell_L_summary.csv",col_types = cols())
+R_cell_bRG_M3<- read_csv("RG/RG_Thy1_32/YFP_cell_R_summary.csv",col_types = cols())
+L_cell_bRG_M3<- read_csv("RG/RG_Thy1_32/YFP_cell_L_summary.csv",col_types = cols())
+R_cell_bRG_M4 <- read_csv("RG/RG_Thy1_4/YFP_cell_R_summary.csv",col_types = cols())
+L_cell_bRG_M4 <- read_csv("RG/RG_Thy1_4/YFP_cell_L_summary.csv",col_types = cols())
+
+R_cell_bNf1_M1 <- read_csv("Nf1/051320 Nf1 Thy1 2 no staining/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M1<- read_csv("Nf1/051320 Nf1 Thy1 2 no staining/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M2<- read_csv("Nf1/081920 Nf1 Thy1 2 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M2<- read_csv("Nf1/081920 Nf1 Thy1 2 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M3 <- read_csv("Nf1/051320 Nf1 Thy1 3/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M3 <- read_csv("Nf1/051320 Nf1 Thy1 3/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M4 <- read_csv("Nf1/051320 Nf1 Thy1 3 no staining/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M4 <- read_csv("Nf1/051320 Nf1 Thy1 3 no staining/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M5 <- read_csv("Nf1/090420 Nf1 Thy1 2 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M5 <- read_csv("Nf1/090420 Nf1 Thy1 2 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M6 <- read_csv("Nf1/Nf1_Thy1_18/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M6 <- read_csv("Nf1/Nf1_Thy1_18/re_cell_L_summary.csv",col_types = cols())
+R_cell_bNf1_M7 <- read_csv("Nf1/030921 Nf1 Thy1 17 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bNf1_M7 <- read_csv("Nf1/030921 Nf1 Thy1 17 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W1 <- read_csv("WT_Nf1/051320 WT Thy1 1 no staining/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W1<- read_csv("WT_Nf1/051320 WT Thy1 1 no staining/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W2<- read_csv("WT_Nf1/051320 WT Thy1 1 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W2<- read_csv("WT_Nf1/051320 WT Thy1 1 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W3 <- read_csv("WT_Nf1/051320 WT Thy1 7/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W3 <- read_csv("WT_Nf1/051320 WT Thy1 7/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W4 <- read_csv("WT_Nf1/WT_Thy1_1/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W4 <- read_csv("WT_Nf1/WT_Thy1_1/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W5 <- read_csv("WT_Nf1/061020 Nf1 WT Thy1 4 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W5 <- read_csv("WT_Nf1/061020 Nf1 WT Thy1 4 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W6 <- read_csv("WT_Nf1/Nf1_Thy1_19/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W6 <- read_csv("WT_Nf1/Nf1_Thy1_19/re_cell_L_summary.csv",col_types = cols())
+R_cell_aNf1_W7 <- read_csv("WT_Nf1/030921 Nf1 WT Thy1 21 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aNf1_W7 <- read_csv("WT_Nf1/030921 Nf1 WT Thy1 21 nostain/re_cell_L_summary.csv",col_types = cols())
+
+R_cell_bTbr1_M1 <- read_csv("Tbr1/092920 Tbr1 Thy1 2 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M1<- read_csv("Tbr1/092920 Tbr1 Thy1 2 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bTbr1_M2<- read_csv("Tbr1/010421 Tbr1 Thy1 3 no stain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M2<- read_csv("Tbr1/010421 Tbr1 Thy1 3 no stain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bTbr1_M3 <- read_csv("Tbr1/120220 Tbr1 Thy1 35 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M3 <- read_csv("Tbr1/120220 Tbr1 Thy1 35 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bTbr1_M4 <- read_csv("Tbr1/110320 Tbr1 Thy1 5 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M4 <- read_csv("Tbr1/110320 Tbr1 Thy1 5 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_bTbr1_M5 <- read_csv("Tbr1/Tbr1_Thy1_24/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M5 <- read_csv("Tbr1/Tbr1_Thy1_24/re_cell_L_summary.csv",col_types = cols())
+R_cell_bTbr1_M6 <- read_csv("Tbr1/030821 Tbr1 Thy1 25 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_bTbr1_M6 <- read_csv("Tbr1/030821 Tbr1 Thy1 25 nostain/re_cell_L_summary.csv",col_types = cols())
+
+R_cell_aTbr1_W1 <- read_csv("WT_Tbr1/092920 Tbr1 WT Thy1 1 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W1 <- read_csv("WT_Tbr1/092920 Tbr1 WT Thy1 1 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aTbr1_W2<- read_csv("WT_Tbr1/010421 Tbr1 WT Thy1 4 no stain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W2<- read_csv("WT_Tbr1/010421 Tbr1 WT Thy1 4 no stain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aTbr1_W3 <- read_csv("WT_Tbr1/110320 Tbr1 WT Thy1 4 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W3 <- read_csv("WT_Tbr1/110320 Tbr1 WT Thy1 4 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aTbr1_W4 <- read_csv("WT_Tbr1/120220 Tbr1 WT Thy1 36 nostain/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W4 <- read_csv("WT_Tbr1/120220 Tbr1 WT Thy1 36 nostain/re_cell_L_summary.csv",col_types = cols())
+R_cell_aTbr1_W5 <- read_csv("WT_Tbr1/Tbr1_Thy1_8/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W5 <- read_csv("WT_Tbr1/Tbr1_Thy1_8/re_cell_L_summary.csv",col_types = cols())
+R_cell_aTbr1_W6 <- read_csv("WT_Tbr1/Tbr1_Thy1_22/re_cell_R_summary.csv",col_types = cols())
+L_cell_aTbr1_W6 <- read_csv("WT_Tbr1/Tbr1_Thy1_22/re_cell_L_summary.csv",col_types = cols())
+```
+
+```{r, echo = TRUE}
+R_cell_aRG_W1[is.na(R_cell_aRG_W1)] <- 0
+R_cell_aRG_W2[is.na(R_cell_aRG_W2)] <- 0
+R_cell_bRG_M1[is.na(R_cell_bRG_M1)] <- 0
+R_cell_bRG_M2[is.na(R_cell_bRG_M2)] <- 0
+R_cell_bRG_M3[is.na(R_cell_bRG_M3)] <- 0
+R_cell_bRG_M4[is.na(R_cell_bRG_M4)] <- 0
+L_cell_aRG_W1[is.na(L_cell_aRG_W1)] <- 0
+L_cell_aRG_W2[is.na(L_cell_aRG_W2)] <- 0
+L_cell_bRG_M1[is.na(L_cell_bRG_M1)] <- 0
+L_cell_bRG_M2[is.na(L_cell_bRG_M2)] <- 0
+L_cell_bRG_M3[is.na(L_cell_bRG_M3)] <- 0
+L_cell_bRG_M4[is.na(L_cell_bRG_M4)] <- 0
+
+R_cell_bNf1_M1[is.na(R_cell_bNf1_M1)] <- 0  
+L_cell_bNf1_M1[is.na(L_cell_bNf1_M1)] <- 0  
+R_cell_bNf1_M2[is.na(R_cell_bNf1_M2)] <- 0  
+L_cell_bNf1_M2[is.na(L_cell_bNf1_M2)] <- 0   
+R_cell_bNf1_M3[is.na(R_cell_bNf1_M3)] <- 0    
+L_cell_bNf1_M3[is.na(L_cell_bNf1_M3)] <- 0    
+R_cell_bNf1_M4[is.na(R_cell_bNf1_M4)] <- 0    
+L_cell_bNf1_M4[is.na(L_cell_bNf1_M4)] <- 0 
+R_cell_bNf1_M5[is.na(R_cell_bNf1_M5)] <- 0    
+L_cell_bNf1_M5[is.na(L_cell_bNf1_M5)] <- 0   
+R_cell_bNf1_M6[is.na(R_cell_bNf1_M6)] <- 0    
+L_cell_bNf1_M6[is.na(L_cell_bNf1_M6)] <- 0 
+R_cell_bNf1_M7[is.na(R_cell_bNf1_M7)] <- 0    
+L_cell_bNf1_M7[is.na(L_cell_bNf1_M7)] <- 0 
+R_cell_aNf1_W1[is.na(R_cell_aNf1_W1)] <- 0    
+L_cell_aNf1_W1[is.na(L_cell_aNf1_W1)] <- 0 
+R_cell_aNf1_W2[is.na(R_cell_aNf1_W2)] <- 0   
+L_cell_aNf1_W2[is.na(L_cell_aNf1_W2)] <- 0   
+R_cell_aNf1_W3[is.na(R_cell_aNf1_W3)] <- 0    
+L_cell_aNf1_W3[is.na(L_cell_aNf1_W3)] <- 0
+R_cell_aNf1_W4[is.na(R_cell_aNf1_W4)] <- 0    
+L_cell_aNf1_W4[is.na(L_cell_aNf1_W4)] <- 0
+R_cell_aNf1_W5[is.na(R_cell_aNf1_W5)] <- 0    
+L_cell_aNf1_W5[is.na(L_cell_aNf1_W5)] <- 0 
+R_cell_aNf1_W6[is.na(R_cell_aNf1_W6)] <- 0    
+L_cell_aNf1_W6[is.na(L_cell_aNf1_W6)] <- 0    
+R_cell_aNf1_W7[is.na(R_cell_aNf1_W7)] <- 0    
+L_cell_aNf1_W7[is.na(L_cell_aNf1_W7)] <- 0 
+
+R_cell_bTbr1_M1[is.na(R_cell_bTbr1_M1)] <- 0  
+L_cell_bTbr1_M1[is.na(L_cell_bTbr1_M1)] <- 0  
+R_cell_bTbr1_M2[is.na(R_cell_bTbr1_M2)] <- 0  
+L_cell_bTbr1_M2[is.na(L_cell_bTbr1_M2)] <- 0   
+R_cell_bTbr1_M3[is.na(R_cell_bTbr1_M3)] <- 0    
+L_cell_bTbr1_M3[is.na(L_cell_bTbr1_M3)] <- 0    
+R_cell_bTbr1_M4[is.na(R_cell_bTbr1_M4)] <- 0    
+L_cell_bTbr1_M4[is.na(L_cell_bTbr1_M4)] <- 0
+R_cell_bTbr1_M5[is.na(R_cell_bTbr1_M5)] <- 0    
+L_cell_bTbr1_M5[is.na(L_cell_bTbr1_M5)] <- 0
+R_cell_bTbr1_M6[is.na(R_cell_bTbr1_M6)] <- 0    
+L_cell_bTbr1_M6[is.na(L_cell_bTbr1_M6)] <- 0   
+R_cell_aTbr1_W1[is.na(R_cell_aTbr1_W1)] <- 0    
+L_cell_aTbr1_W1[is.na(L_cell_aTbr1_W1)] <- 0   
+R_cell_aTbr1_W2[is.na(R_cell_aTbr1_W2)] <- 0   
+L_cell_aTbr1_W2[is.na(L_cell_aTbr1_W2)] <- 0   
+R_cell_aTbr1_W3[is.na(R_cell_aTbr1_W3)] <- 0    
+L_cell_aTbr1_W3[is.na(L_cell_aTbr1_W3)] <- 0
+R_cell_aTbr1_W4[is.na(R_cell_aTbr1_W4)] <- 0   
+L_cell_aTbr1_W4[is.na(L_cell_aTbr1_W4)] <- 0   
+R_cell_aTbr1_W5[is.na(R_cell_aTbr1_W5)] <- 0    
+L_cell_aTbr1_W5[is.na(L_cell_aTbr1_W5)] <- 0
+R_cell_aTbr1_W6[is.na(R_cell_aTbr1_W6)] <- 0    
+L_cell_aTbr1_W6[is.na(L_cell_aTbr1_W6)] <- 0   
+```
+
+```{r, echo = TRUE}
+L_cell_aRG_W1_sum1 <- L_cell_aRG_W1 %>% mutate(total = rowSums(L_cell_aRG_W1[2:137])) %>% select(-c(2:137)) %>% filter (total>0)
+L_cell_bRG_M1_sum2 <- L_cell_bRG_M1 %>% mutate(total = rowSums(L_cell_bRG_M1[2:132])) %>% select(-c(2:132)) %>% filter (total>0)
+L_cell_bRG_M2_sum3 <- L_cell_bRG_M2 %>% mutate(total = rowSums(L_cell_bRG_M2[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+L_cell_aRG_W2_sum4 <- L_cell_aRG_W2 %>% mutate(total = rowSums(L_cell_aRG_W2[2:131])) %>% select(-c(2:131)) %>% filter (total>0)
+L_cell_bRG_M3_sum5 <- L_cell_bRG_M3 %>% mutate(total = rowSums(L_cell_bRG_M3[2:131])) %>% select(-c(2:131)) %>% filter (total>0) 
+L_cell_bRG_M4_sum6 <- L_cell_bRG_M4 %>% mutate(total = rowSums(L_cell_bRG_M4[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+R_cell_aRG_W1_sum1 <- R_cell_aRG_W1 %>% mutate(total = rowSums(R_cell_aRG_W1[2:137])) %>% select(-c(2:137)) %>% filter (total>0)
+R_cell_bRG_M1_sum2 <- R_cell_bRG_M1 %>% mutate(total = rowSums(R_cell_bRG_M1[2:132])) %>% select(-c(2:132)) %>% filter (total>0) 
+R_cell_bRG_M2_sum3 <- R_cell_bRG_M2 %>% mutate(total = rowSums(R_cell_bRG_M2[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+R_cell_aRG_W2_sum4 <- R_cell_aRG_W2 %>% mutate(total = rowSums(R_cell_aRG_W2[2:131])) %>% select(-c(2:131)) %>% filter (total>0)
+R_cell_bRG_M3_sum5 <- R_cell_bRG_M3 %>% mutate(total = rowSums(R_cell_bRG_M3[2:131])) %>% select(-c(2:131)) %>% filter (total>0) 
+R_cell_bRG_M4_sum6 <- R_cell_bRG_M4 %>% mutate(total = rowSums(R_cell_bRG_M4[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+
+L_cell_bNf1_M1_sum1 <- L_cell_bNf1_M1 %>% mutate(total = rowSums(L_cell_bNf1_M1[2:129])) %>% select(-c(2:129)) %>% filter (total>0) 
+L_cell_bNf1_M2_sum2 <- L_cell_bNf1_M2 %>% mutate(total = rowSums(L_cell_bNf1_M2[2:124])) %>% select(-c(2:124)) %>% filter (total>0)
+L_cell_bNf1_M3_sum3 <- L_cell_bNf1_M3 %>% mutate(total = rowSums(L_cell_bNf1_M3[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+L_cell_bNf1_M4_sum4 <- L_cell_bNf1_M4 %>% mutate(total = rowSums(L_cell_bNf1_M4[2:129])) %>% select(-c(2:129)) %>% filter (total>0)
+L_cell_bNf1_M5_sum5 <- L_cell_bNf1_M5 %>% mutate(total = rowSums(L_cell_bNf1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+L_cell_bNf1_M6_sum6 <- L_cell_bNf1_M6 %>% mutate(total = rowSums(L_cell_bNf1_M6[2:131])) %>% select(-c(2:131)) %>% filter (total>0)
+L_cell_bNf1_M7_sum7 <- L_cell_bNf1_M7 %>% mutate(total = rowSums(L_cell_bNf1_M7[2:139])) %>% select(-c(2:139)) %>% filter (total>0)
+
+R_cell_bNf1_M1_sum1 <- R_cell_bNf1_M1 %>% mutate(total = rowSums(R_cell_bNf1_M1[2:129])) %>% select(-c(2:129)) %>% filter (total>0)
+R_cell_bNf1_M2_sum2 <- R_cell_bNf1_M2 %>% mutate(total = rowSums(R_cell_bNf1_M2[2:124])) %>% select(-c(2:124)) %>% filter (total>0)
+R_cell_bNf1_M3_sum3 <- R_cell_bNf1_M3 %>% mutate(total = rowSums(R_cell_bNf1_M3[2:123])) %>% select(-c(2:123))%>% filter (total>0) 
+R_cell_bNf1_M4_sum4 <- R_cell_bNf1_M4 %>% mutate(total = rowSums(R_cell_bNf1_M4[2:129])) %>% select(-c(2:129))%>% filter (total>0)
+R_cell_bNf1_M5_sum5 <- R_cell_bNf1_M5 %>% mutate(total = rowSums(R_cell_bNf1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+R_cell_bNf1_M6_sum6 <- R_cell_bNf1_M6 %>% mutate(total = rowSums(R_cell_bNf1_M6[2:131])) %>% select(-c(2:131)) %>% filter (total>0)
+R_cell_bNf1_M7_sum7 <- R_cell_bNf1_M7 %>% mutate(total = rowSums(R_cell_bNf1_M7[2:139])) %>% select(-c(2:139)) %>% filter (total>0)
+
+L_cell_aNf1_W1_sum1 <- L_cell_aNf1_W1 %>% mutate(total = rowSums(L_cell_aNf1_W1[2:130])) %>% select(-c(2:130)) %>% filter (total>0)
+L_cell_aNf1_W2_sum2 <- L_cell_aNf1_W2 %>% mutate(total = rowSums(L_cell_aNf1_W2[2:121])) %>% select(-c(2:121))%>% filter (total>0) 
+L_cell_aNf1_W3_sum3 <- L_cell_aNf1_W3 %>% mutate(total = rowSums(L_cell_aNf1_W3[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+L_cell_aNf1_W4_sum4 <- L_cell_aNf1_W4 %>% mutate(total = rowSums(L_cell_aNf1_W4[2:129])) %>% select(-c(2:129)) %>% filter (total>0)
+L_cell_aNf1_W5_sum5 <- L_cell_aNf1_W5 %>% mutate(total = rowSums(L_cell_aNf1_W5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+L_cell_aNf1_W6_sum6 <- L_cell_aNf1_W6 %>% mutate(total = rowSums(L_cell_aNf1_W6[2:127])) %>% select(-c(2:127)) %>% filter (total>0)
+L_cell_aNf1_W7_sum7 <- L_cell_aNf1_W7 %>% mutate(total = rowSums(L_cell_aNf1_W7[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+
+R_cell_aNf1_W1_sum1 <- R_cell_aNf1_W1 %>% mutate(total = rowSums(R_cell_aNf1_W1[2:130])) %>% select(-c(2:130)) %>% filter (total>0)
+R_cell_aNf1_W2_sum2 <- R_cell_aNf1_W2 %>% mutate(total = rowSums(R_cell_aNf1_W2[2:121])) %>% select(-c(2:121)) %>% filter (total>0)
+R_cell_aNf1_W3_sum3 <- R_cell_aNf1_W3 %>% mutate(total = rowSums(R_cell_aNf1_W3[2:123])) %>% select(-c(2:123)) %>% filter (total>0)
+R_cell_aNf1_W4_sum4 <- R_cell_aNf1_W4 %>% mutate(total = rowSums(R_cell_aNf1_W4[2:129])) %>% select(-c(2:129)) %>% filter (total>0)
+R_cell_aNf1_W5_sum5 <- R_cell_aNf1_W5 %>% mutate(total = rowSums(R_cell_aNf1_W5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+R_cell_aNf1_W6_sum6 <- R_cell_aNf1_W6 %>% mutate(total = rowSums(R_cell_aNf1_W6[2:127])) %>% select(-c(2:127)) %>% filter (total>0)
+R_cell_aNf1_W7_sum7 <- R_cell_aNf1_W7 %>% mutate(total = rowSums(R_cell_aNf1_W7[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+
+L_cell_bTbr1_M1_sum1 <- L_cell_bTbr1_M1 %>% mutate(total = rowSums(L_cell_bTbr1_M1[2:137])) %>% select(-c(2:137))%>% filter (total>0) 
+L_cell_bTbr1_M2_sum2 <- L_cell_bTbr1_M2 %>% mutate(total = rowSums(L_cell_bTbr1_M2[2:145])) %>% select(-c(2:145))%>% filter (total>0) 
+L_cell_bTbr1_M3_sum3 <- L_cell_bTbr1_M3 %>% mutate(total = rowSums(L_cell_bTbr1_M3[2:139])) %>% select(-c(2:139))%>% filter (total>0) 
+L_cell_bTbr1_M4_sum4 <- L_cell_bTbr1_M4 %>% mutate(total = rowSums(L_cell_bTbr1_M4[2:137])) %>% select(-c(2:137))%>% filter (total>0) 
+L_cell_bTbr1_M5_sum5 <- L_cell_bTbr1_M5 %>% mutate(total = rowSums(L_cell_bTbr1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+L_cell_bTbr1_M6_sum6 <- L_cell_bTbr1_M6 %>% mutate(total = rowSums(L_cell_bTbr1_M6[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+
+R_cell_bTbr1_M1_sum1 <- R_cell_bTbr1_M1 %>% mutate(total = rowSums(R_cell_bTbr1_M1[2:137])) %>% select(-c(2:137)) %>% filter (total>0)
+R_cell_bTbr1_M2_sum2 <- R_cell_bTbr1_M2 %>% mutate(total = rowSums(R_cell_bTbr1_M2[2:145])) %>% select(-c(2:145))%>% filter (total>0)  
+R_cell_bTbr1_M3_sum3 <- R_cell_bTbr1_M3 %>% mutate(total = rowSums(R_cell_bTbr1_M3[2:139])) %>% select(-c(2:139))%>% filter (total>0) 
+R_cell_bTbr1_M4_sum4 <- R_cell_bTbr1_M4 %>% mutate(total = rowSums(R_cell_bTbr1_M4[2:137])) %>% select(-c(2:137)) %>% filter (total>0) 
+R_cell_bTbr1_M5_sum5 <- R_cell_bTbr1_M5 %>% mutate(total = rowSums(R_cell_bTbr1_M5[2:136])) %>% select(-c(2:136)) %>% filter (total>0)
+R_cell_bTbr1_M6_sum6 <- R_cell_bTbr1_M6 %>% mutate(total = rowSums(R_cell_bTbr1_M6[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+
+L_cell_aTbr1_W1_sum1 <- L_cell_aTbr1_W1 %>% mutate(total = rowSums(L_cell_aTbr1_W1[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+L_cell_aTbr1_W2_sum2 <- L_cell_aTbr1_W2 %>% mutate(total = rowSums(L_cell_aTbr1_W2[2:137])) %>% select(-c(2:137)) %>% filter (total>0)
+L_cell_aTbr1_W3_sum3 <- L_cell_aTbr1_W3 %>% mutate(total = rowSums(L_cell_aTbr1_W3[2:137])) %>% select(-c(2:137)) %>% filter (total>0)
+L_cell_aTbr1_W4_sum4 <- L_cell_aTbr1_W4 %>% mutate(total = rowSums(L_cell_aTbr1_W4[2:133])) %>% select(-c(2:133))%>% filter (total>0) 
+L_cell_aTbr1_W5_sum5 <- L_cell_aTbr1_W5 %>% mutate(total = rowSums(L_cell_aTbr1_W5[2:131])) %>% select(-c(2:131)) %>% filter (total>0)
+L_cell_aTbr1_W6_sum6 <- L_cell_aTbr1_W6 %>% mutate(total = rowSums(L_cell_aTbr1_W6[2:131])) %>% select(-c(2:131))%>% filter (total>0) 
+R_cell_aTbr1_W1_sum1 <- R_cell_aTbr1_W1 %>% mutate(total = rowSums(R_cell_aTbr1_W1[2:133])) %>% select(-c(2:133))%>% filter (total>0) 
+R_cell_aTbr1_W2_sum2 <- R_cell_aTbr1_W2 %>% mutate(total = rowSums(R_cell_aTbr1_W2[2:137])) %>% select(-c(2:137))%>% filter (total>0)  
+R_cell_aTbr1_W3_sum3 <- R_cell_aTbr1_W3 %>% mutate(total = rowSums(R_cell_aTbr1_W3[2:137])) %>% select(-c(2:137))%>% filter (total>0) 
+R_cell_aTbr1_W4_sum4 <- R_cell_aTbr1_W4 %>% mutate(total = rowSums(R_cell_aTbr1_W4[2:133])) %>% select(-c(2:133)) %>% filter (total>0)
+R_cell_aTbr1_W5_sum5 <- R_cell_aTbr1_W5 %>% mutate(total = rowSums(R_cell_aTbr1_W5[2:131])) %>% select(-c(2:131))%>% filter (total>0) 
+R_cell_aTbr1_W6_sum6 <- R_cell_aTbr1_W6 %>% mutate(total = rowSums(R_cell_aTbr1_W6[2:131])) %>% select(-c(2:131))%>% filter (total>0) 
+```
+
+```{r , echo = TRUE}
+WT_cell_L <- merge(L_cell_aRG_W2_sum4,L_cell_aRG_W1_sum1,by = 'LABEL') %>% rename (one = total.x, two = total.y) 
+WT_cell_L <- WT_cell_L %>% merge(L_cell_aNf1_W1_sum1, by = 'LABEL') %>% rename (three = total) %>% merge(L_cell_aNf1_W2_sum2, by = 'LABEL') %>% rename (four = total) %>% merge(L_cell_aNf1_W3_sum3, by = 'LABEL') %>% rename (five = total) %>% merge(L_cell_aNf1_W4_sum4, by = 'LABEL') %>% rename (six = total) %>% merge(L_cell_aNf1_W5_sum5, by = 'LABEL') %>% rename (seven = total) %>% merge(L_cell_aTbr1_W1_sum1, by = 'LABEL') %>% rename (eight = total) %>% merge(L_cell_aTbr1_W2_sum2, by = 'LABEL') %>% rename (nine = total) %>% merge(L_cell_aTbr1_W3_sum3, by = 'LABEL') %>% rename (ten = total) %>% merge (L_cell_aTbr1_W4_sum4, by = 'LABEL') %>% rename (eleven = total) %>% merge (L_cell_aTbr1_W5_sum5, by = 'LABEL') %>% rename (twelve = total) %>% merge (L_cell_aTbr1_W6_sum6, by = 'LABEL') %>% rename (thirteen = total) %>% merge(L_cell_aNf1_W6_sum6, by = 'LABEL') %>% rename (fourteen = total) %>% merge(L_cell_aNf1_W7_sum7, by = 'LABEL') %>% rename (fifteen = total)
+WT_cell_L <- WT_cell_L %>% mutate(average= rowMeans(WT_cell_L[2:16])) %>% select(-c(2:16))
+
+WT_cell_R <- merge(R_cell_aRG_W2_sum4,R_cell_aRG_W1_sum1,by = 'LABEL') %>% rename (one = total.x, two = total.y) 
+WT_cell_R <- WT_cell_R %>% merge(R_cell_aNf1_W1_sum1, by = 'LABEL') %>% rename (three = total) %>% merge(R_cell_aNf1_W2_sum2, by = 'LABEL') %>% rename (four = total) %>% merge(R_cell_aNf1_W3_sum3, by = 'LABEL') %>% rename (five = total) %>% merge(R_cell_aNf1_W4_sum4, by = 'LABEL') %>% rename (six = total) %>% merge(R_cell_aNf1_W5_sum5, by = 'LABEL') %>% rename (seven = total) %>% merge(R_cell_aTbr1_W1_sum1, by = 'LABEL') %>% rename (eight = total) %>% merge(R_cell_aTbr1_W2_sum2, by = 'LABEL') %>% rename (nine = total) %>% merge(R_cell_aTbr1_W3_sum3, by = 'LABEL') %>% rename (ten = total) %>% merge (R_cell_aTbr1_W4_sum4, by = 'LABEL') %>% rename (eleven = total) %>% merge (R_cell_aTbr1_W5_sum5, by = 'LABEL') %>% rename (twelve = total) %>% merge (R_cell_aTbr1_W6_sum6, by = 'LABEL') %>% rename (thirteen = total) %>% merge(R_cell_aNf1_W6_sum6, by = 'LABEL') %>% rename (fourteen = total)%>% merge(R_cell_aNf1_W7_sum7, by = 'LABEL') %>% rename (fifteen = total)
+WT_cell_R <- WT_cell_R %>% mutate(average= rowMeans(WT_cell_R[2:16])) %>% select(-c(2:16))
+```
+
+```{r, echo = TRUE }
+L_cell_summary <- merge(L_cell_bRG_M1_sum2,L_cell_bRG_M2_sum3, by="LABEL")
+L_cell_summary <- L_cell_summary %>% rename (bRG_M1 = total.x, bRG_M2 = total.y) %>% merge(L_cell_aRG_W1_sum1, by="LABEL") %>% rename(aRG_W1 = total) %>% merge(L_cell_aRG_W2_sum4, by="LABEL") %>% rename(aRG_W2 = total) %>% merge(L_cell_bRG_M3_sum5, by="LABEL") %>% rename(bRG_M3 = total) %>% merge(L_cell_bRG_M4_sum6, by="LABEL") %>% rename(bRG_M4 = total) %>% merge(L_cell_bNf1_M1_sum1, by="LABEL") %>% rename(bNf1_M1 = total) %>% merge(L_cell_bNf1_M2_sum2, by="LABEL") %>% rename(bNf1_M2 = total) %>% merge(L_cell_bNf1_M3_sum3, by="LABEL") %>% rename(bNf1_M3 = total) %>% merge(L_cell_bNf1_M4_sum4, by="LABEL") %>% rename(bNf1_M4 = total) %>% merge(L_cell_bNf1_M5_sum5, by="LABEL") %>% rename(bNf1_M5 = total) %>% merge(L_cell_aNf1_W1_sum1, by="LABEL") %>% rename(aNf1_W1 = total) %>% merge(L_cell_aNf1_W2_sum2, by="LABEL") %>% rename(aNf1_W2 = total) %>% merge(L_cell_aNf1_W3_sum3, by="LABEL") %>% rename(aNf1_W3 = total) %>% merge(L_cell_aNf1_W4_sum4, by="LABEL") %>% rename(aNf1_W4 = total) %>% merge(L_cell_aNf1_W5_sum5, by="LABEL") %>% rename(aNf1_W5 = total) %>% merge(L_cell_bTbr1_M1_sum1, by="LABEL") %>% rename(bTbr1_M1 = total) %>% merge(L_cell_bTbr1_M2_sum2, by="LABEL") %>% rename(bTbr1_M2 = total) %>% merge(L_cell_bTbr1_M3_sum3, by="LABEL") %>% rename(bTbr1_M3 = total) %>% merge(L_cell_bTbr1_M4_sum4, by="LABEL") %>% rename(bTbr1_M4 = total)  %>% merge(L_cell_bTbr1_M5_sum5, by="LABEL") %>% rename(bTbr1_M5 = total)%>% merge(L_cell_aTbr1_W1_sum1, by="LABEL") %>% rename(aTbr1_W1 = total) %>% merge(L_cell_aTbr1_W2_sum2, by="LABEL") %>% rename(aTbr1_W2 = total) %>% merge(L_cell_aTbr1_W3_sum3, by="LABEL") %>% rename(aTbr1_W3 = total) %>% merge(L_cell_aTbr1_W4_sum4, by="LABEL") %>% rename(aTbr1_W4 = total) %>% merge(L_cell_aTbr1_W5_sum5, by="LABEL") %>% rename(aTbr1_W5 = total) %>% merge(L_cell_aTbr1_W6_sum6, by="LABEL") %>% rename(aTbr1_W6 = total) %>% merge(L_cell_aNf1_W6_sum6, by = 'LABEL') %>% rename (aNf1_W6 = total) %>% merge(L_cell_bNf1_M6_sum6, by = 'LABEL') %>% rename (bNf1_M6 = total) %>% merge(L_cell_aNf1_W7_sum7, by = 'LABEL') %>% rename (aNf1_W7 = total)%>% merge(L_cell_bTbr1_M6_sum6, by="LABEL") %>% rename(bTbr1_M6 = total) %>% merge(L_cell_bNf1_M7_sum7, by="LABEL") %>% rename(bNf1_M7 = total) %>% merge(WT_cell_L, by="LABEL")  
+
+R_cell_summary <- merge(R_cell_bRG_M1_sum2,R_cell_bRG_M2_sum3, by="LABEL")
+R_cell_summary <- R_cell_summary %>% rename (bRG_M1 = total.x, bRG_M2 = total.y) %>% merge(R_cell_aRG_W1_sum1, by="LABEL") %>% rename(aRG_W1 = total) %>% merge(R_cell_aRG_W2_sum4, by="LABEL") %>% rename(aRG_W2 = total) %>% merge(R_cell_bRG_M3_sum5, by="LABEL") %>% rename(bRG_M3 = total) %>% merge(R_cell_bRG_M4_sum6, by="LABEL") %>% rename(bRG_M4 = total) %>% merge(R_cell_bNf1_M1_sum1, by="LABEL") %>% rename(bNf1_M1 = total) %>% merge(R_cell_bNf1_M2_sum2, by="LABEL") %>% rename(bNf1_M2 = total) %>% merge(R_cell_bNf1_M3_sum3, by="LABEL") %>% rename(bNf1_M3 = total) %>% merge(R_cell_bNf1_M4_sum4, by="LABEL") %>% rename(bNf1_M4 = total) %>% merge(R_cell_bNf1_M5_sum5, by="LABEL") %>% rename(bNf1_M5 = total) %>% merge(R_cell_aNf1_W1_sum1, by="LABEL") %>% rename(aNf1_W1 = total) %>% merge(R_cell_aNf1_W2_sum2, by="LABEL") %>% rename(aNf1_W2 = total) %>% merge(R_cell_aNf1_W3_sum3, by="LABEL") %>% rename(aNf1_W3 = total) %>% merge(R_cell_aNf1_W4_sum4, by="LABEL") %>% rename(aNf1_W4 = total) %>% 
+merge(R_cell_aNf1_W5_sum5, by="LABEL") %>% rename(aNf1_W5 = total) %>% merge(R_cell_bTbr1_M1_sum1, by="LABEL") %>% rename(bTbr1_M1 = total) %>% merge(R_cell_bTbr1_M2_sum2, by="LABEL") %>% rename(bTbr1_M2 = total) %>% merge(R_cell_bTbr1_M3_sum3, by="LABEL") %>% rename(bTbr1_M3 = total) %>% merge(R_cell_bTbr1_M4_sum4, by="LABEL") %>% rename(bTbr1_M4 = total) %>% merge(R_cell_bTbr1_M5_sum5, by="LABEL") %>% rename(bTbr1_M5 = total) %>% merge(R_cell_aTbr1_W1_sum1, by="LABEL") %>% rename(aTbr1_W1 = total) %>% merge(R_cell_aTbr1_W2_sum2, by="LABEL") %>% rename(aTbr1_W2 = total) %>% merge(R_cell_aTbr1_W3_sum3, by="LABEL") %>% rename(aTbr1_W3 = total) %>% merge(R_cell_aTbr1_W4_sum4, by="LABEL") %>% rename(aTbr1_W4 = total) %>% merge(R_cell_aTbr1_W5_sum5, by="LABEL") %>% rename(aTbr1_W5 = total) %>% merge(R_cell_aTbr1_W6_sum6, by="LABEL") %>% rename(aTbr1_W6 = total) %>% merge(R_cell_aNf1_W6_sum6, by = 'LABEL') %>% rename (aNf1_W6 = total) %>% merge(R_cell_bNf1_M6_sum6, by = 'LABEL') %>% rename (bNf1_M6 = total) %>% merge(R_cell_aNf1_W7_sum7, by = 'LABEL') %>% rename (aNf1_W7 = total)%>% merge(R_cell_bTbr1_M6_sum6, by="LABEL") %>% rename(bTbr1_M6 = total) %>% merge(R_cell_bNf1_M7_sum7, by="LABEL") %>% rename(bNf1_M7 = total) %>% merge(WT_cell_R, by="LABEL") 
+```
+
+```{r, echo = TRUE}
+L_cell_summary_n <- L_cell_summary %>% mutate (bRG_M1 = bRG_M1/average*100) %>% mutate (bRG_M2 = bRG_M2/average*100) %>% mutate (aRG_W1 = aRG_W1/average*100) %>% mutate (aRG_W2 = aRG_W2/average*100) %>% mutate (bRG_M3 = bRG_M3/average*100) %>% mutate (bRG_M4 = bRG_M4/average*100) %>% mutate (bNf1_M1 = bNf1_M1/average*100) %>% mutate (bNf1_M2 = bNf1_M2/average*100) %>% mutate (bNf1_M3 = bNf1_M3/average*100) %>% mutate (bNf1_M4 = bNf1_M4/average*100) %>% mutate (bNf1_M5 = bNf1_M5/average*100) %>% mutate (bNf1_M6 = bNf1_M6/average*100) %>% mutate (aNf1_W1 = aNf1_W1/average*100) %>% mutate (aNf1_W2 = aNf1_W2/average*100) %>% mutate (aNf1_W3 = aNf1_W3/average*100)  %>% mutate (aNf1_W4 = aNf1_W4/average*100) %>% mutate (aNf1_W5 = aNf1_W5/average*100) %>% mutate (aNf1_W6 = aNf1_W6/average*100) %>% mutate (bTbr1_M1 = bTbr1_M1/average*100) %>% mutate (bTbr1_M2 = bTbr1_M2/average*100) %>% mutate (bTbr1_M3 = bTbr1_M3/average*100) %>% mutate (bTbr1_M4 = bTbr1_M4/average*100) %>% mutate (bTbr1_M5 = bTbr1_M5/average*100) %>% mutate (aTbr1_W1 = aTbr1_W1/average*100) %>% mutate (aTbr1_W2 = aTbr1_W2/average*100) %>% mutate (aTbr1_W3 = aTbr1_W3/average*100) %>% mutate (aTbr1_W4 = aTbr1_W4/average*100)%>% mutate (aTbr1_W5 = aTbr1_W5/average*100) %>% mutate (aTbr1_W6 = aTbr1_W6/average*100) %>% mutate (aNf1_W7 = aNf1_W7/average*100) %>% mutate (bTbr1_M6 = bTbr1_M6/average*100) %>% mutate (bNf1_M7 = bNf1_M7/average*100)  %>% select (-c(average))
+
+R_cell_summary_n <- R_cell_summary %>% mutate (bRG_M1 = bRG_M1/average*100) %>% mutate (bRG_M2 = bRG_M2/average*100) %>% mutate (aRG_W1 = aRG_W1/average*100) %>% mutate (aRG_W2 = aRG_W2/average*100) %>% mutate (bRG_M3 = bRG_M3/average*100) %>% mutate (bRG_M4 = bRG_M4/average*100) %>% mutate (bNf1_M1 = bNf1_M1/average*100) %>% mutate (bNf1_M2 = bNf1_M2/average*100) %>% mutate (bNf1_M3 = bNf1_M3/average*100) %>% mutate (bNf1_M4 = bNf1_M4/average*100)  %>% mutate (bNf1_M5 = bNf1_M5/average*100) %>% mutate (bNf1_M6 = bNf1_M6/average*100) %>% mutate (aNf1_W1 = aNf1_W1/average*100) %>% mutate (aNf1_W2 = aNf1_W2/average*100) %>% mutate (aNf1_W3 = aNf1_W3/average*100) %>% mutate (aNf1_W4 = aNf1_W4/average*100) %>% mutate (aNf1_W5 = aNf1_W5/average*100) %>% mutate (aNf1_W6 = aNf1_W6/average*100) %>% mutate (bTbr1_M1 = bTbr1_M1/average*100) %>% mutate (bTbr1_M2 = bTbr1_M2/average*100) %>% mutate (bTbr1_M3 = bTbr1_M3/average*100) %>% mutate (bTbr1_M4 = bTbr1_M4/average*100) %>% mutate (bTbr1_M5 = bTbr1_M5/average*100) %>% mutate (aTbr1_W1 = aTbr1_W1/average*100) %>% mutate (aTbr1_W2 = aTbr1_W2/average*100) %>% mutate (aTbr1_W3 = aTbr1_W3/average*100) %>% mutate (aTbr1_W4 = aTbr1_W4/average*100) %>% mutate (aTbr1_W5 = aTbr1_W5/average*100) %>% mutate (aTbr1_W6 = aTbr1_W6/average*100)%>% mutate (aNf1_W7 = aNf1_W7/average*100) %>% mutate (bTbr1_M6 = bTbr1_M6/average*100) %>% mutate (bNf1_M7 = bNf1_M7/average*100)%>% select (-c(average))
+```
+
+```{r, echo = TRUE}
+write.csv(L_cell_summary,"summaryinfo/L_cell_summary.csv", row.names = FALSE)
+write.csv(R_cell_summary,"summaryinfo/R_cell_summary.csv", row.names = FALSE)
+write.csv(L_cell_summary_n,"summaryinfo/L_cell_summary_n.csv", row.names = FALSE)
+write.csv(R_cell_summary_n,"summaryinfo/R_cell_summary_n.csv", row.names = FALSE)
+```
+
+```{r,warning=FALSE}
+parent_structure <- read_csv("structuretree/structure_list_parent_v1.csv",col_types = cols())
+parent_structure_subset <- parent_structure %>% select(c(LABEL))
+```
+
+```{r, echo = TRUE}
+parent_L_mean <- parent_structure_subset %>% merge(L_mean_summary_n, by = 'LABEL')  
+parent_R_mean <- parent_structure_subset %>% merge(R_mean_summary_n, by = 'LABEL')  
+parent_L_cell <- parent_structure_subset %>% merge(L_cell_summary_n, by = 'LABEL')  
+parent_R_cell <- parent_structure_subset %>% merge(R_cell_summary_n, by = 'LABEL')  
+```
+
+```{r, echo = TRUE}
+parent_L_mean <- parent_L_mean %>% mutate(ratio = ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7)+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6)+((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/((aRG_W1+aRG_W2)/2))
+parent_L_mean <- parent_L_mean[order(parent_L_mean$ratio),]
+parent_R_mean <- parent_R_mean %>% mutate(ratio = ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7)+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6)+((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/((aRG_W1+aRG_W2)/2))
+parent_R_mean <- parent_R_mean[order(parent_R_mean$ratio),]
+```
+
+```{r, echo = TRUE}
+parent_L_cell <- parent_L_cell %>% mutate(ratio = ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7)+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6)+((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/((aRG_W1+aRG_W2)/2))
+parent_L_cell <- parent_L_cell[order(parent_L_cell$ratio),]
+parent_R_cell <- parent_R_cell %>% mutate(ratio = ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7)+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6)+((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/((aRG_W1+aRG_W2)/2))
+parent_R_cell <- parent_R_cell[order(parent_R_cell$ratio),]
+```
+
+```{r, echo = TRUE}
+parent_L_more <- parent_L_mean %>% mutate(nf1_ratio= ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7))
+parent_L_more <- parent_L_more %>% mutate(tbr1_ratio=
+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6))
+parent_L_more <- parent_L_more %>% mutate(rg_ratio=((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/(aRG_W1+aRG_W2/2))
+parent_R_more <- parent_R_mean %>% mutate(nf1_ratio= ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7))
+parent_R_more <- parent_R_more %>% mutate(tbr1_ratio=
+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6))
+parent_R_more <- parent_R_more %>% mutate(rg_ratio=((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/(aRG_W1+aRG_W2/2))
+                                            
+```
+
+```{r}
+parent_L_more_cell <- parent_L_cell %>% mutate(nf1_ratio= ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7))
+parent_L_more_cell <- parent_L_more_cell %>% mutate(tbr1_ratio=
+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6))
+parent_L_more_cell <- parent_L_more_cell %>% mutate(rg_ratio=((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/(aRG_W1+aRG_W2/2))
+parent_R_more_cell <- parent_R_cell %>% mutate(nf1_ratio= ((bNf1_M1+bNf1_M2+bNf1_M3+bNf1_M4+bNf1_M5+bNf1_M6+bNf1_M7)/7)/((aNf1_W1+aNf1_W2+aNf1_W3+aNf1_W4+aNf1_W5+aNf1_W6+aNf1_W7)/7))
+parent_R_more_cell <- parent_R_more_cell %>% mutate(tbr1_ratio=
+((bTbr1_M1+bTbr1_M2+bTbr1_M3+bTbr1_M4+bTbr1_M5+bTbr1_M6)/6)/((aTbr1_W1+aTbr1_W2+aTbr1_W3+aTbr1_W4+aTbr1_W5+aTbr1_W6)/6))
+parent_R_more_cell <- parent_R_more_cell %>% mutate(rg_ratio=((bRG_M1+bRG_M2+bRG_M3+bRG_M4)/4)/(aRG_W1+aRG_W2/2))
+```
+
+
+```{r, echo = TRUE}
+parent_L_mean_gathered <- parent_L_mean %>% gather(genotype, mean_intensity, 2:33)
+parent_R_mean_gathered <- parent_R_mean %>% gather(genotype, mean_intensity, 2:33)
+parent_L_more_gathered <- parent_L_more %>% gather(genotype, mean_intensity, 2:33)
+parent_R_more_gathered <- parent_R_more %>% gather(genotype, mean_intensity, 2:33)
+```
+
+```{r}
+parent_L_cell_gathered <- parent_L_cell %>% gather(genotype, cell_density, 2:33)
+parent_R_cell_gathered <- parent_R_cell %>% gather(genotype, cell_density, 2:33)
+parent_L_cell_gathered_more <- parent_L_more_cell %>% gather(genotype, cell_density, 2:33)
+parent_R_cell_gathered_more <- parent_R_more_cell %>% gather(genotype, cell_density, 2:33)
+```
+
+
+```{r}
+count <- parent_L_cell_ordered[grep("Tbr1_W", parent_L_cell_ordered$genotype),] 
+```
+
+```{r, echo = TRUE}
+parent_L_cell_ordered <- with(parent_L_cell_gathered,  parent_L_cell_gathered[order(genotype) , ]) 
+parent_L_cell_ordered <- parent_L_cell_ordered %>% tibble::rowid_to_column("ID")
+nm_vec_c <-  rep_len('Nf1_W', 1309)
+nw_vec_c <-  rep_len('RG_W',374)
+rgm_vec_c <- rep_len('Tbr1_W',1122)
+rgw_vec_c <- rep_len('Nf1_M', 1309)
+tbrm_vec_c <- rep_len('RG_M',748)
+tbrw_vec_c <- rep_len('Tbr1_M',1122)
+mw_vector_c <- c(nm_vec_c,nw_vec_c,rgm_vec_c,rgw_vec_c,tbrm_vec_c,tbrw_vec_c)
+parent_L_cell_ordered$type <- mw_vector_c
+
+parent_R_cell_ordered <- with(parent_R_cell_gathered,  parent_R_cell_gathered[order(genotype) , ]) 
+parent_R_cell_ordered <- parent_R_cell_ordered %>% tibble::rowid_to_column("ID")
+nm_vect <-  rep_len('Nf1_W', 1316)
+nw_vect <-  rep_len('RG_W',376)
+rgm_vect <- rep_len('Tbr1_W',1128)
+rgw_vect <- rep_len('Nf1_M', 1316)
+tbrm_vect <- rep_len('RG_M',752)
+tbrw_vect <- rep_len('Tbr1_M',1128)
+mwr_vector_c <- c(nm_vect,nw_vect,rgm_vect,rgw_vect,tbrm_vect,tbrw_vect)
+parent_R_cell_ordered$type <- mwr_vector_c
+
+parent_L_more_ordered_cell <- with(parent_L_cell_gathered_more,  parent_L_cell_gathered_more[order(genotype) , ]) 
+parent_L_more_ordered_cell <- parent_L_more_ordered_cell %>% tibble::rowid_to_column("ID")
+parent_L_more_ordered_cell$type <- mw_vector_c
+
+parent_R_more_ordered_cell <- with(parent_R_cell_gathered_more,  parent_R_cell_gathered_more[order(genotype) , ]) 
+parent_R_more_ordered_cell <- parent_R_more_ordered_cell %>% tibble::rowid_to_column("ID")
+parent_R_more_ordered_cell$type <- mwr_vector_c
+```
+
+```{r}
+count <- parent_R_mean_ordered[grep("Nf1_W", parent_R_mean_ordered$genotype),] 
+```
+
+
+```{r, echo = TRUE}
+parent_L_mean_ordered <- with(parent_L_mean_gathered,  parent_L_mean_gathered[order(genotype) , ]) 
+parent_L_mean_ordered <- parent_L_mean_ordered %>% tibble::rowid_to_column("ID")
+nm_vec <-  rep_len('Nf1_W', 1183)
+nw_vec <-  rep_len('RG_W',338)
+rgm_vec <- rep_len('Tbr1_W',1014)
+rgw_vec <- rep_len('Nf1_M', 1183)
+tbrm_vec <- rep_len('RG_M',676)
+tbrw_vec <- rep_len('Tbr1_M',1014)
+mw_vector <- c(nm_vec,nw_vec,rgm_vec,rgw_vec,tbrm_vec,tbrw_vec)
+parent_L_mean_ordered$type <- mw_vector
+parent_R_mean_ordered <- with(parent_R_mean_gathered,  parent_R_mean_gathered[order(genotype) , ]) 
+parent_R_mean_ordered <- parent_R_mean_ordered %>% tibble::rowid_to_column("ID")
+nm_vect <-  rep_len('Nf1_W', 1211)
+nw_vect <-  rep_len('RG_W',346)
+rgm_vect <- rep_len('Tbr1_W',1038)
+rgw_vect <- rep_len('Nf1_M', 1211)
+tbrm_vect <- rep_len('RG_M',692)
+tbrw_vect <- rep_len('Tbr1_M',1038)
+mwr_vector <- c(nm_vect,nw_vect,rgm_vect,rgw_vect,tbrm_vect,tbrw_vect)
+parent_R_mean_ordered$type <- mwr_vector
+
+parent_L_more_ordered <- with(parent_L_more_gathered,  parent_L_more_gathered[order(genotype) , ]) 
+parent_L_more_ordered <- parent_L_more_ordered %>% tibble::rowid_to_column("ID")
+parent_L_more_ordered$type <- mw_vector
+
+parent_R_more_ordered <- with(parent_R_more_gathered,  parent_R_more_gathered[order(genotype) , ]) 
+parent_R_more_ordered <- parent_R_more_ordered %>% tibble::rowid_to_column("ID")
+parent_R_more_ordered$type <- mwr_vector
+```
+
+
+```{r}
+write.csv(parent_R_more_ordered_cell,"summaryinfo/parent_R_more_ordered_cell.csv", row.names = FALSE)
+write.csv(parent_L_more_ordered_cell,"summaryinfo/parent_L_more_ordered_cell.csv", row.names = FALSE)
+write.csv(parent_R_cell_ordered,"summaryinfo/parent_R_cell_ordered.csv", row.names = FALSE)
+write.csv(parent_L_cell_ordered,"summaryinfo/parent_L_cell_ordered.csv", row.names = FALSE)
+write.csv(parent_R_cell,"summaryinfo/parent_R_cell.csv", row.names = FALSE)
+write.csv(parent_L_cell,"summaryinfo/parent_L_cell.csv", row.names = FALSE)
+
+write.csv(parent_R_more_ordered,"summaryinfo/parent_R_more_ordered.csv", row.names = FALSE)
+write.csv(parent_L_more_ordered,"summaryinfo/parent_L_more_ordered.csv", row.names = FALSE)
+write.csv(parent_R_mean_ordered,"summaryinfo/parent_R_mean_ordered.csv", row.names = FALSE)
+write.csv(parent_L_mean_ordered,"summaryinfo/parent_L_mean_ordered.csv", row.names = FALSE)
+write.csv(parent_R_mean,"summaryinfo/parent_R_mean.csv", row.names = FALSE)
+write.csv(parent_L_mean,"summaryinfo/parent_L_mean.csv", row.names = FALSE)
+```
+
+## Mann Whitney U: Cell
+```{r, echo = TRUE}
+parent_L_cell_subset_nf1 <- parent_L_cell %>% select (c("LABEL","bNf1_M1","bNf1_M2","bNf1_M3" , "bNf1_M4" , "bNf1_M5","bNf1_M6","bNf1_M7", "aNf1_W1" ,"aNf1_W2" , "aNf1_W3" , "aNf1_W4", "aNf1_W5" , "aNf1_W7", "aNf1_W6" ))
+parent_L_cell_subset_tbr1 <- parent_L_cell%>% select (c("LABEL","bTbr1_M1" ,"bTbr1_M2", "bTbr1_M3", "bTbr1_M4", "bTbr1_M5","bTbr1_M6","aTbr1_W1", "aTbr1_W2", "aTbr1_W3", "aTbr1_W4" ,"aTbr1_W5" ,"aTbr1_W6"  ))
+parent_L_cell_subset_rg <- parent_L_cell %>% select (c("LABEL","bRG_M1" ,  "bRG_M2" ,"bRG_M3","bRG_M4", "aRG_W1",  "aRG_W2" ))
+
+parent_L_cell_subset_nf1$stat <- sapply(1:nrow(parent_L_cell_subset_nf1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_cell_subset_nf1[i,2:8]))), as.numeric(as.character(unlist(parent_L_cell_subset_nf1[i,9:15]))), correct=FALSE)[c("p.value")])
+
+parent_L_cell_subset_tbr1$stat <- sapply(1:nrow(parent_L_cell_subset_tbr1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_cell_subset_tbr1[i,2:7]))), as.numeric(as.character(unlist(parent_L_cell_subset_tbr1[i,8:13]))), correct=FALSE)[c("p.value")])
+
+parent_L_cell_subset_rg$stat <- sapply(1:nrow(parent_L_cell_subset_rg), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_cell_subset_rg[i,2:5]))), as.numeric(as.character(unlist(parent_L_cell_subset_rg[i,6:7]))), correct=FALSE)[c("p.value")])
+
+parent_R_cell_subset_nf1 <- parent_R_cell %>% select (c("LABEL","bNf1_M1","bNf1_M2","bNf1_M3" , "bNf1_M4" , "bNf1_M5","bNf1_M6","bNf1_M7", "aNf1_W1" ,"aNf1_W2" , "aNf1_W3" , "aNf1_W4", "aNf1_W5" , "aNf1_W7", "aNf1_W6" ))
+parent_R_cell_subset_tbr1 <- parent_R_cell %>% select (c("LABEL","bTbr1_M1" ,"bTbr1_M2", "bTbr1_M3", "bTbr1_M4", "bTbr1_M5","bTbr1_M6","aTbr1_W1", "aTbr1_W2", "aTbr1_W3", "aTbr1_W4" ,"aTbr1_W5" ,"aTbr1_W6"  ))
+parent_R_cell_subset_rg <- parent_R_cell %>% select (c("LABEL","bRG_M1" ,  "bRG_M2","bRG_M3","bRG_M4",  "aRG_W1",  "aRG_W2" ))
+
+parent_R_cell_subset_nf1$stat <- sapply(1:nrow(parent_R_cell_subset_nf1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_cell_subset_nf1[i,2:8]))), as.numeric(as.character(unlist(parent_R_cell_subset_nf1[i,9:15]))), correct=FALSE)[c("p.value")])
+
+parent_R_cell_subset_tbr1$stat <- sapply(1:nrow(parent_R_cell_subset_tbr1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_cell_subset_tbr1[i,2:7]))), as.numeric(as.character(unlist(parent_R_cell_subset_tbr1[i,8:13]))), correct=FALSE)[c("p.value")])
+
+parent_R_cell_subset_rg$stat <- sapply(1:nrow(parent_R_cell_subset_rg), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_cell_subset_rg[i,2:5]))), as.numeric(as.character(unlist(parent_R_cell_subset_rg[i,6:7]))), correct=FALSE)[c("p.value")])
+
+```
+
+## Mann Whitney U: Mean
+```{r, echo = TRUE}
+parent_L_mean_subset_nf1 <- parent_L_mean %>% select (c("LABEL","bNf1_M1","bNf1_M2","bNf1_M3" , "bNf1_M4" , "bNf1_M5","bNf1_M6","bNf1_M7", "aNf1_W1" ,"aNf1_W2" , "aNf1_W3" , "aNf1_W4", "aNf1_W5" , "aNf1_W7", "aNf1_W6" ))
+parent_L_mean_subset_tbr1 <- parent_L_mean %>% select (c("LABEL","bTbr1_M1" ,"bTbr1_M2", "bTbr1_M3", "bTbr1_M4", "bTbr1_M5","bTbr1_M6","aTbr1_W1", "aTbr1_W2", "aTbr1_W3", "aTbr1_W4" ,"aTbr1_W5" ,"aTbr1_W6"  ))
+parent_L_mean_subset_rg <- parent_L_mean %>% select (c("LABEL","bRG_M1" ,  "bRG_M2","bRG_M3","bRG_M4",  "aRG_W1",  "aRG_W2" ))
+
+parent_L_mean_subset_nf1$stat <- sapply(1:nrow(parent_L_mean_subset_nf1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_mean_subset_nf1[i,2:8]))), as.numeric(as.character(unlist(parent_L_mean_subset_nf1[i,9:15]))), correct=FALSE)[c("p.value")])
+
+parent_L_mean_subset_tbr1$stat <- sapply(1:nrow(parent_L_mean_subset_tbr1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_mean_subset_tbr1[i,2:7]))), as.numeric(as.character(unlist(parent_L_mean_subset_tbr1[i,8:13]))), correct=FALSE)[c("p.value")])
+
+parent_L_mean_subset_rg$stat <- sapply(1:nrow(parent_L_mean_subset_rg), function(i) wilcox.test(as.numeric(as.character(unlist(parent_L_mean_subset_rg[i,2:5]))), as.numeric(as.character(unlist(parent_L_mean_subset_rg[i,6:7]))), correct=FALSE)[c("p.value")])
+
+parent_R_mean_subset_nf1 <- parent_R_mean %>% select (c("LABEL","bNf1_M1","bNf1_M2","bNf1_M3" , "bNf1_M4" , "bNf1_M5","bNf1_M6","bNf1_M7", "aNf1_W1" ,"aNf1_W2" , "aNf1_W3" , "aNf1_W4", "aNf1_W5" , "aNf1_W7", "aNf1_W6" ))
+parent_R_mean_subset_tbr1 <- parent_R_mean %>% select (c("LABEL","bTbr1_M1" ,"bTbr1_M2", "bTbr1_M3", "bTbr1_M4", "bTbr1_M5","bTbr1_M6","aTbr1_W1", "aTbr1_W2", "aTbr1_W3", "aTbr1_W4" ,"aTbr1_W5" ,"aTbr1_W6"  ))
+parent_R_mean_subset_rg <- parent_R_mean %>% select (c("LABEL","bRG_M1" ,  "bRG_M2","bRG_M3","bRG_M4",  "aRG_W1",  "aRG_W2" ))
+
+parent_R_mean_subset_nf1$stat <- sapply(1:nrow(parent_R_mean_subset_nf1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_mean_subset_nf1[i,2:8]))), as.numeric(as.character(unlist(parent_R_mean_subset_nf1[i,9:15]))), correct=FALSE)[c("p.value")])
+
+parent_R_mean_subset_tbr1$stat <- sapply(1:nrow(parent_R_mean_subset_tbr1), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_mean_subset_tbr1[i,2:7]))), as.numeric(as.character(unlist(parent_R_mean_subset_tbr1[i,8:13]))), correct=FALSE)[c("p.value")])
+
+parent_R_mean_subset_rg$stat <- sapply(1:nrow(parent_R_mean_subset_rg), function(i) wilcox.test(as.numeric(as.character(unlist(parent_R_mean_subset_rg[i,2:5]))), as.numeric(as.character(unlist(parent_R_mean_subset_rg[i,6:7]))), correct=FALSE)[c("p.value")])
+
+```
+
+```{r, echo = TRUE}
+mwu_L <- parent_L_mean %>% select(c("LABEL",'ratio')) %>% mutate(nf1_mwu=parent_L_mean_subset_nf1$stat) %>% mutate(tbr1_mwu=parent_L_mean_subset_tbr1$stat) %>% mutate(rg_mwu=parent_L_mean_subset_rg$stat) %>% mutate(ratio=ratio/3)
+mwu_R <- parent_R_mean %>% select(c("LABEL",'ratio')) %>% mutate(nf1_mwu=parent_R_mean_subset_nf1$stat) %>% mutate(tbr1_mwu=parent_R_mean_subset_tbr1$stat) %>% mutate(rg_mwu=parent_R_mean_subset_rg$stat)%>% mutate(ratio=ratio/3)
+```
+
+```{r}
+mwu_L_cell <- parent_L_cell %>% select(c("LABEL",'ratio')) %>% mutate(nf1_mwu=parent_L_cell_subset_nf1$stat) %>% mutate(tbr1_mwu=parent_L_cell_subset_tbr1$stat) %>% mutate(rg_mwu=parent_L_cell_subset_rg$stat) %>% mutate(ratio=ratio/3)
+mwu_R_cell <- parent_R_cell %>% select(c("LABEL",'ratio')) %>% mutate(nf1_mwu=parent_R_cell_subset_nf1$stat) %>% mutate(tbr1_mwu=parent_R_cell_subset_tbr1$stat) %>% mutate(rg_mwu=parent_R_cell_subset_rg$stat)%>% mutate(ratio=ratio/3)
+```
+
+## Regression
+
+```{r, echo = TRUE}
+regression=function(L_mc){
+        reg_fun<-lm(formula=L_mc$mean_intensity~L_mc$cell_density) 
+        slope<-round(coef(reg_fun)[2],3)  
+        intercept<-round(coef(reg_fun)[1],3) 
+        R2<-round(as.numeric(glance(reg_fun)[,1]),3)
+        R2.Adj<-round(as.numeric(glance(reg_fun)[,2]),3)
+        pvalue<-round(as.numeric(glance(reg_fun)[,5]),3)
+        c(slope,intercept,R2,R2.Adj,pvalue)}
+
+#R2 shows how well terms (data points) fit a curve or line. 
+#Adjusted R2 also indicates how well terms fit a curve or line, but adjusts for the number of terms in a model-percentage of variation explained by data points that actually matter 
+#More useless variables decrease adjusted r-squared
+#More useful variables increase adjusted r-squared
+#Adjusted R2 will always be less than or equal to R2.
+
+```
+
+```{r, echo = TRUE}
+L_cell_gathered <- L_cell_summary_n %>% gather(genotype, cell_density, 2:33)
+parent_L_mean_subset_gathered <- parent_L_mean %>%  gather(genotype, mean_intensity, 2:33)
+L_mc <- parent_L_mean_subset_gathered %>% merge(L_cell_gathered, by = c('genotype', 'LABEL'))
+R_cell_gathered <- R_cell_summary_n %>% gather(genotype, cell_density, 2:33)
+parent_R_mean_subset_gathered <- parent_R_mean %>%  gather(genotype, mean_intensity, 2:33)
+R_mc <- parent_R_mean_subset_gathered %>% merge(R_cell_gathered, by = c('genotype', 'LABEL'))
+```
+
+```{r, echo = TRUE}
+L_mc_nf1 <- L_mc[grep("Nf1", L_mc$genotype), ]
+R_mc_nf1 <- R_mc[grep("Nf1", R_mc$genotype), ]
+L_mc_tbr1 <- L_mc[grep("Tbr1", L_mc$genotype), ]
+R_mc_tbr1 <- R_mc[grep("Tbr1", R_mc$genotype), ]
+L_mc_rg <- L_mc[grep("RG", L_mc$genotype), ]
+R_mc_rg <- R_mc[grep("RG", R_mc$genotype), ]
+
+regressions_data_L_nf1<-ddply(L_mc_nf1,"LABEL",regression) 
+colnames(regressions_data_L_nf1)<-c ("LABEL","slope","intercept","R2","R2.Adj","nf1_p")
+reg_L_nf1<-lm(formula=L_mc_nf1$mean_intensity~L_mc_nf1$cell_density)
+regressions_data_L_nf1<- regressions_data_L_nf1 %>% select (c(LABEL, nf1_p))
+
+regressions_data_R_nf1<-ddply(R_mc_nf1,"LABEL",regression)
+colnames(regressions_data_R_nf1)<-c ("LABEL","slope","intercept","R2","R2.Adj","nf1_p")
+reg_R_nf1<-lm(formula=R_mc_nf1$mean_intensity~R_mc_nf1$cell_density)
+regressions_data_R_nf1<- regressions_data_R_nf1 %>% select (c(LABEL, nf1_p))
+
+regressions_data_L_tbr1<-ddply(L_mc_tbr1,"LABEL",regression)
+colnames(regressions_data_L_tbr1)<-c ("LABEL","slope","intercept","R2","R2.Adj","tbr1_p")
+reg_L_tbr1<-lm(formula=L_mc_tbr1$mean_intensity~L_mc_tbr1$cell_density)
+regressions_data_L_tbr1<- regressions_data_L_tbr1 %>% select (c(LABEL, tbr1_p))
+
+regressions_data_R_tbr1<-ddply(R_mc_tbr1,"LABEL",regression)
+colnames(regressions_data_R_tbr1)<-c ("LABEL","slope","intercept","R2","R2.Adj","tbr1_p")
+reg_R_tbr1<-lm(formula=R_mc_tbr1$mean_intensity~R_mc_tbr1$cell_density) 
+regressions_data_R_tbr1<- regressions_data_R_tbr1 %>% select (c(LABEL, tbr1_p))
+
+regressions_data_L_rg<-ddply(L_mc_rg,"LABEL",regression)
+colnames(regressions_data_L_rg)<-c ("LABEL","slope","intercept","R2","R2.Adj","rg_p")
+reg_L_rg<-lm(formula=L_mc_rg$mean_intensity~L_mc_rg$cell_density)
+regressions_data_L_rg<- regressions_data_L_rg %>% select (c(LABEL, rg_p))
+
+regressions_data_R_rg<-ddply(R_mc_rg,"LABEL",regression)
+colnames(regressions_data_R_rg)<-c ("LABEL","slope","intercept","R2","R2.Adj","rg_p")
+reg_R_rg<-lm(formula=R_mc_rg$mean_intensity~R_mc_rg$cell_density) 
+regressions_data_R_rg<- regressions_data_R_rg %>% select (c(LABEL, rg_p))
+
+
+reg_L <- structure_dropempty_hex  %>% merge(regressions_data_L_nf1, by= 'LABEL') %>% merge(regressions_data_L_tbr1, by= 'LABEL') %>% merge(regressions_data_L_rg, by= 'LABEL')
+reg_R <- structure_dropempty_hex %>% merge(regressions_data_R_nf1, by= 'LABEL') %>% merge(regressions_data_R_tbr1, by= 'LABEL') %>% merge(regressions_data_R_rg, by= 'LABEL')
+
+#reg_L[,3:5] <- apply(stat_L[3:5],2,as.numeric)
+#reg_R[,3:5] <- apply(stat_R[3:5],2,as.numeric)
+
+```
+
+
+```{r}
+structure_dropempty_hex <- read_csv("structuretree/structure_dropempty_hex.csv",col_types = cols())
+stat_L_cell <- with(stat_L_cell, stat_L_cell[order(-ratio), ])
+stat_R_cell <- with(stat_R_cell, stat_R_cell[order(-ratio), ]) 
+stat_L <- with(stat_L, stat_L[order(-ratio), ])
+stat_R <- with(stat_R, stat_R[order(-ratio), ]) 
+stat_L <- stat_L %>% merge(structure_dropempty_hex, by='LABEL')
+stat_R <- stat_R %>% merge(structure_dropempty_hex, by='LABEL')
+stat_L_cell <- stat_L_cell %>% merge(structure_dropempty_hex, by='LABEL')
+stat_R_cell<- stat_R_cell%>% merge(structure_dropempty_hex, by='LABEL')
+
+
+write.csv(reg_L,"summaryinfo/reg_L.csv", row.names = FALSE)
+write.csv(reg_R,"summaryinfo/reg_R.csv", row.names = FALSE)
+
+```
+
+```{r}
+mwu_L[,2:5] <- apply(mwu_L[2:5],2,as.numeric)
+mwu_R[,2:5] <- apply(mwu_R[2:5],2,as.numeric)
+mwu_L_cell[,2:5] <- apply(mwu_L_cell[2:5],2,as.numeric)
+mwu_R_cell[,2:5] <- apply(mwu_R_cell[2:5],2,as.numeric)
+mwu_L <- mwu_L %>% merge(structure_dropempty_hex, by='LABEL')
+mwu_R <- mwu_R %>% merge(structure_dropempty_hex, by='LABEL')
+mwu_L_cell <- mwu_L_cell %>% merge(structure_dropempty_hex, by='LABEL')
+mwu_R_cell <- mwu_R_cell %>% merge(structure_dropempty_hex, by='LABEL')
+```
+
+```{r}
+write.csv(mwu_L,"summaryinfo/mwu_L.csv", row.names = FALSE)
+write.csv(mwu_R,"summaryinfo/mwu_R.csv", row.names = FALSE)
+write.csv(mwu_L_cell,"summaryinfo/mwu_L_cell.csv", row.names = FALSE)
+write.csv(mwu_R_cell,"summaryinfo/mwu_R_cell.csv", row.names = FALSE)
+```
+
+```{r}
+stat_L <- left_join(mwu_L,reg_L)
+stat_R <- left_join(mwu_R,reg_R)
+stat_L_cell <- left_join(mwu_L_cell,reg_L)
+stat_R_cell <- left_join(mwu_R_cell,reg_R)
+```
+
+```{r}
+write.csv(stat_L,"summaryinfo/stat_L.csv", row.names = FALSE)
+write.csv(stat_R,"summaryinfo/stat_R.csv", row.names = FALSE)
+write.csv(stat_L_cell,"summaryinfo/stat_L_cell.csv", row.names = FALSE)
+write.csv(stat_R_cell,"summaryinfo/stat_R_cell.csv", row.names = FALSE)
+```
+
+```{r, echo = TRUE}
+structure_list <- read_csv("structuretree/structuretree_original.csv",col_types = cols()) 
+structure_dropempty <- read_csv("structuretree/structure_list_dropempty.csv",col_types = cols())
+structure_list <- structure_list %>% select(c('acronym','rgb_triplet','name'))
+structure_dropempty_rgb <- structure_dropempty %>% select(c('-R-','-G-','-B-')) 
+```
+
+```{r, echo = TRUE}
+
+f = function(x, output) {
+    # x is the row of type Character
+    # access element in first column
+    r = x[1]
+    # access element in second column
+    g = x[2]
+    b = x[3]
+    rgb(r, g, b, maxColorValue = 255)
+}
+structure_dropempty <- structure_dropempty %>% mutate(hex=apply(structure_dropempty_rgb, 1, f)) %>% select(c('LABEL','hex'))
+write.csv(structure_dropempty,"structuretree/structure_dropempty_hex.csv", row.names = FALSE)
+```
+
+```{r}
+left_join(x,y)
+```
+```{r}
+L_cell_gathered <- L_cell_summary_n %>% gather(genotype, cell_density, 2:31)
+parent_L_mean_gathered <- parent_L_mean  %>%  gather(genotype, mean_intensity, 2:31)
+L_mc <- parent_L_mean_gathered %>% merge(L_cell_gathered, by = c('genotype', 'LABEL'))
+R_cell_gathered <- R_cell_summary_n %>% gather(genotype, cell_density, 2:31)
+parent_R_mean_gathered <- parent_R_mean %>%  gather(genotype, mean_intensity, 2:31)
+R_mc <- parent_R_mean_gathered %>% merge(R_cell_gathered, by = c('genotype', 'LABEL'))
+```
+
